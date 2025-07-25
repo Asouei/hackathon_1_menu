@@ -1,5 +1,6 @@
 import './styles.css';
 import ContextMenu from './menu';
+import BackgroundModule from './modules/background.module';
 
 function application() {
   return () => {
@@ -33,12 +34,7 @@ function application() {
       },
     });
 
-    menu.add({
-      type: 'Alert',
-      trigger() {
-        alert('Alert from context menu!');
-      },
-    });
+    menu.add(new BackgroundModule());
 
     document.addEventListener('contextmenu', (event) => {
       event.preventDefault();
