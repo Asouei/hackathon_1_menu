@@ -2,101 +2,129 @@ export function random(min, max) {
   return Math.round(min - 0.5 + Math.random() * (max - min + 1));
 }
 
-// color functions: generate color linear gradient with transparency
-export function randomGradient(randomColors = null, opacity = 1){
-  const gradientType = 'linear-gradient';  
-  const gradientDirection = Math.floor(Math.random()*361);
-  const gradColorsArray =randomColors || randomSchemeHSLColors();
-  const gradColorsArrayOpacity  = gradColorsArray.map((elem)=>{
-    return elem.replace(')', `, ${opacity})`).replace('hsl(', 'hsla(');
-  });
-  const gradientColors = gradColorsArrayOpacity.join(', ');
-  const gradient = `${gradientType}(${gradientDirection}deg, ${gradientColors})`;
-  console.log(gradient);
-  return gradient;
+// Генерация градиента и списка структурированных цветов
+export function randomGradient(randomColors = null, opacity = 1) {
+  const gradientType = 'linear-gradient';
+  const gradientDirection = Math.floor(Math.random() * 361);
+  const gradColorsArray = randomColors || randomSchemeHSLColors();
+
+  // Массив с alpha для визуального градиента
+  const gradColorsArrayOpacity = gradColorsArray.map((hsl) =>
+    hsl.replace(')', `, ${opacity})`).replace('hsl(', 'hsla(')
+  );
+  const gradient = `${gradientType}(${gradientDirection}deg, ${gradColorsArrayOpacity.join(', ')})`;
+
+  // Конвертация в hex и rgb
+  const structuredColors = gradColorsArray
+    .map((hslStr) => {
+      const match = hslStr.match(/hsl\((\d+),\s*(\d+)%?,\s*(\d+)%?\)/i);
+      if (!match) return null;
+
+      const [_, h, s, l] = match.map(Number);
+      return {
+        hsl: hslStr,
+        rgb: hslToRgb(h, s, l),
+        hex: hslToHex(h, s, l),
+      };
+    })
+    .filter(Boolean);
+
+  return {
+    gradient,
+    colors: structuredColors,
+  };
 }
 
-// color functions: generate random HSL color
-function randomHSLColor(){
-  const randomHue = Math.floor(Math.random()*361);
-  const randomSat = Math.floor(Math.random()*101);
-  const randomValue = Math.floor(Math.random()*101);
-  console.log(randomHue, randomSat, randomValue);
-  return `hsl(${randomHue},${randomSat}%,${randomValue}%)`
+// ==========================
+// Преобразование HSL → RGB
+// ==========================
+function hslToRgb(h, s, l) {
+  s /= 100;
+  l /= 100;
+  const k = (n) => (n + h / 30) % 12;
+  const a = s * Math.min(l, 1 - l);
+  const f = (n) => {
+    const val = l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+    return Math.round(255 * val);
+  };
+  return `rgb(${f(0)}, ${f(8)}, ${f(4)})`;
 }
 
-// color functions: generate array from hsl colors from main color schemes. Color schemes can be added inside the array "colorScehemes"
-
-function randomSchemeHSLColors(){
-  const index = Math.floor(Math.random()*colorScehemes.length);
-  return colorScehemes[index]();
+// ==========================
+// Преобразование HSL → HEX
+// ==========================
+function hslToHex(h, s, l) {
+  s /= 100;
+  l /= 100;
+  const k = (n) => (n + h / 30) % 12;
+  const a = s * Math.min(l, 1 - l);
+  const f = (n) => {
+    const val = l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+    return Math.round(255 * val);
+  };
+  const r = f(0);
+  const g = f(8);
+  const b = f(4);
+  return `#${[r, g, b].map((x) => x.toString(16).padStart(2, '0')).join('')}`;
 }
 
-const colorScehemes = [
-  analogSchemeHue,
-  complementarySchemeHue,
-  triadSchemeHue,
-  tetradSchemeHue
-]
-
-function analogSchemeHue(offset=15){
-  const randomHue = Math.floor(Math.random()*361);
-  const randomSat = Math.floor(Math.random()*101);
-  const randomValue = Math.floor(Math.random()*101);
-
-  const analogHue1 = (randomHue-offset+360)%360;
-  const analogHue2 = (randomHue+offset+360)%360;
-  
-  const HSLColor1 =  `hsl(${analogHue1},${randomSat}%,${randomValue}%)`;
-  const HSLColor2 =  `hsl(${randomHue},${randomSat}%,${randomValue}%)`;
-  const HSLColor3 =  `hsl(${analogHue2},${randomSat}%,${randomValue}%)`;
-
-  return [HSLColor1, HSLColor2, HSLColor3];
+// ==========================
+// Генерация HSL строк
+// ==========================
+function randomHSLColor() {
+  const h = random(0, 360);
+  const s = random(60, 100); // более насыщенные
+  const l = random(40, 85); // более светлые
+  return `hsl(${h},${s}%,${l}%)`;
 }
 
-function complementarySchemeHue(){
-  const randomHue = Math.floor(Math.random()*361);
-  const randomSat = Math.floor(Math.random()*101);
-  const randomValue = Math.floor(Math.random()*101);
-
-  const complementaryHue = (randomHue+180)%360;
-  
-  const HSLColor1 =  `hsl(${randomHue},${randomSat}%,${randomValue}%)`;
-  const HSLColor2 =  `hsl(${complementaryHue},${randomSat}%,${randomValue}%)`;
-
-  return [HSLColor1, HSLColor2];
+function randomSchemeHSLColors() {
+  const index = Math.floor(Math.random() * colorSchemes.length);
+  return colorSchemes[index]();
 }
 
-function triadSchemeHue(){
-  const randomHue = Math.floor(Math.random()*361);
-  const randomSat = Math.floor(Math.random()*101);
-  const randomValue = Math.floor(Math.random()*101);
+const colorSchemes = [analogSchemeHue, complementarySchemeHue, triadSchemeHue, tetradSchemeHue];
 
-  const triadHue1 = (randomHue-120+360)%360;
-  const triadHue2 = (randomHue+120)%360;
-
-
-  const HSLColor1 =  `hsl(${triadHue1},${randomSat}%,${randomValue}%)`;
-  const HSLColor2 =  `hsl(${randomHue},${randomSat}%,${randomValue}%)`;
-  const HSLColor3 =  `hsl(${triadHue2},${randomSat}%,${randomValue}%)`;
-
-  return [HSLColor1, HSLColor2, HSLColor3];
+// ==========================
+// Цветовые схемы
+// ==========================
+function analogSchemeHue(offset = 15) {
+  const h = random(0, 360);
+  const s = random(60, 100);
+  const l = random(45, 85);
+  return [
+    `hsl(${(h - offset + 360) % 360},${s}%,${l}%)`,
+    `hsl(${h},${s}%,${l}%)`,
+    `hsl(${(h + offset) % 360},${s}%,${l}%)`,
+  ];
 }
 
-function tetradSchemeHue(){
-  const randomHue = Math.floor(Math.random()*361);
-  const randomSat = Math.floor(Math.random()*101);
-  const randomValue = Math.floor(Math.random()*101);
+function complementarySchemeHue() {
+  const h = random(0, 360);
+  const s = random(65, 100);
+  const l = random(50, 85);
+  return [`hsl(${h},${s}%,${l}%)`, `hsl(${(h + 180) % 360},${s}%,${l}%)`];
+}
 
-  const tetradHue1 = (randomHue+60)%360;
-  const tetradHue2 = (randomHue+180)%360;
-  const tetradHue3 = (randomHue+240)%360;
+function triadSchemeHue() {
+  const h = random(0, 360);
+  const s = random(70, 100);
+  const l = random(55, 85);
+  return [
+    `hsl(${(h - 120 + 360) % 360},${s}%,${l}%)`,
+    `hsl(${h},${s}%,${l}%)`,
+    `hsl(${(h + 120) % 360},${s}%,${l}%)`,
+  ];
+}
 
-
-  const HSLColor1 =  `hsl(${randomHue},${randomSat}%,${randomValue}%)`;
-  const HSLColor2 =  `hsl(${tetradHue1},${randomSat}%,${randomValue}%)`;
-  const HSLColor3 =  `hsl(${tetradHue2},${randomSat}%,${randomValue}%)`;
-  const HSLColor4 =  `hsl(${tetradHue3},${randomSat}%,${randomValue}%)`;
-
-  return [HSLColor1, HSLColor2, HSLColor3, HSLColor4];
+function tetradSchemeHue() {
+  const h = random(0, 360);
+  const s = random(60, 100);
+  const l = random(50, 85);
+  return [
+    `hsl(${h},${s}%,${l}%)`,
+    `hsl(${(h + 60) % 360},${s}%,${l}%)`,
+    `hsl(${(h + 180) % 360},${s}%,${l}%)`,
+    `hsl(${(h + 240) % 360},${s}%,${l}%)`,
+  ];
 }
