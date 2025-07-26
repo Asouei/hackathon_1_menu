@@ -1,12 +1,14 @@
 // @ts-nocheck
 
 import Menu from './core/menu';
+import Notification from './utils/notifications';
 
 export default class ContextMenu extends Menu {
   constructor(selector) {
     super(selector);
     this.modules = [];
     this.visible = false;
+    this.notification = new Notification();
 
     // Обработка клика по пункту меню
     this.el.addEventListener('click', (event) => {
@@ -74,7 +76,7 @@ export default class ContextMenu extends Menu {
     }, 100);
 
     // Запуск glow эффекта после появления всех элементов
-    const glowDelay = this.modules.length * 80 + 300;
+    const glowDelay = this.modules.length * 80 + 200;
     setTimeout(() => {
       if (this.visible) {
         this.el.classList.add('glow');
@@ -96,6 +98,7 @@ export default class ContextMenu extends Menu {
     item.addEventListener('mouseleave', () => {
       item.style.transform = 'translateX(0) scale(1)';
       item.style.textShadow = 'none';
+      // this.notification.warning('Не удалось подключиться к серверу', 'Ошибка сети');
     });
 
     // Эффект клика
