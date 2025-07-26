@@ -1,22 +1,30 @@
 // @ts-nocheck
 
 import Menu from './core/menu';
-import Notification from './utils/notifications';
 
 export default class ContextMenu extends Menu {
   constructor(selector) {
     super(selector);
+    this.el = document.querySelector(selector);
+    if (!this.el) {
+      this.el = document.createElement('ul');
+      this.el.classList.add('menu');
+      document.body.appendChild(this.el);
+    }
+
     this.modules = [];
     this.visible = false;
-    this.notification = new Notification();
 
     // Обработка клика по пункту меню
     this.el.addEventListener('click', (event) => {
       const item = event.target.closest('.menu-item');
+      console.log('[DEBUG] Clicked item:', item);
       if (!item) return;
 
       const { index } = item.dataset;
+      console.log('[DEBUG] Index:', index);
       const module = this.modules[index];
+      console.log('[DEBUG] Module:', module);
       if (module) {
         module.trigger();
         this.close();
@@ -37,6 +45,16 @@ export default class ContextMenu extends Menu {
     };
   }
 
+  addGradientChangeEffect() {
+    // Добавляем класс для анимации смены градиента
+    this.el.classList.add('gradient-changing');
+
+    // Убираем класс после анимации
+    setTimeout(() => {
+      this.el.classList.remove('gradient-changing');
+    }, 1000);
+  }
+
   open(x, y) {
     if (this.modules.length === 0) return;
 
@@ -47,7 +65,7 @@ export default class ContextMenu extends Menu {
 
     this.el.innerHTML = '';
 
-    // Создаем элементы меню с улучшенной анимацией
+    // Создаем элементы меню
     this.modules.forEach((module, index) => {
       const $item = document.createElement('li');
       $item.textContent = module.type;
@@ -55,8 +73,13 @@ export default class ContextMenu extends Menu {
       $item.dataset.index = index;
       $item.style.animationDelay = `${index * 80}ms`;
 
-      // Добавляем дополнительные эффекты для каждого элемента
-      this.enhanceMenuItem($item, index);
+      // Специальная обработка для Background модуля
+      if (module.type && module.type.includes('Background')) {
+        $item.classList.add('background-item');
+        this.enhanceBackgroundMenuItem($item);
+      } else {
+        this.enhanceMenuItem($item);
+      }
 
       this.el.appendChild($item);
     });
@@ -69,7 +92,6 @@ export default class ContextMenu extends Menu {
     this.visible = true;
 
     // Добавляем обработчики событий только после открытия меню
-    // Небольшая задержка чтобы избежать немедленного срабатывания
     setTimeout(() => {
       document.addEventListener('click', this.handleOutsideClick);
       document.addEventListener('keydown', this.handleEscapeKey);
@@ -84,12 +106,21 @@ export default class ContextMenu extends Menu {
     }, glowDelay);
   }
 
-  enhanceMenuItem(item, index) {
-    // Добавляем случайную задержку для более естественной анимации
-    const randomDelay = Math.random() * 50;
-    item.style.animationDelay = `${index * 80 + randomDelay}ms`;
+  enhanceBackgroundMenuItem(item) {
+    // Специальные hover эффекты для Background пункта
+    item.addEventListener('mouseenter', () => {
+      // Показываем мини превью
+      this.showGradientPreview(item);
+    });
 
-    // Добавляем hover эффекты
+    item.addEventListener('mouseleave', () => {
+      // Убираем превью
+      this.hideGradientPreview(item);
+    });
+  }
+
+  enhanceMenuItem(item) {
+    // Обычные эффекты для остальных пунктов
     item.addEventListener('mouseenter', () => {
       item.style.transform = 'translateX(6px) scale(1.02)';
       item.style.textShadow = '0 0 12px rgba(255, 255, 255, 0.4)';
@@ -98,17 +129,32 @@ export default class ContextMenu extends Menu {
     item.addEventListener('mouseleave', () => {
       item.style.transform = 'translateX(0) scale(1)';
       item.style.textShadow = 'none';
-      // this.notification.warning('Не удалось подключиться к серверу', 'Ошибка сети');
     });
+  }
 
-    // Эффект клика
-    item.addEventListener('mousedown', () => {
-      item.style.transform = 'translateX(3px) scale(0.98)';
-    });
+  showGradientPreview(item) {
+    // Создаем маленькое превью градиента
+    const preview = document.createElement('div');
+    preview.className = 'gradient-mini-preview';
 
-    item.addEventListener('mouseup', () => {
-      item.style.transform = 'translateX(6px) scale(1.02)';
-    });
+    item.appendChild(preview);
+
+    // Показываем превью с небольшой задержкой
+    setTimeout(() => {
+      preview.style.opacity = '1';
+    }, 100);
+  }
+
+  hideGradientPreview(item) {
+    const preview = item.querySelector('.gradient-mini-preview');
+    if (preview) {
+      preview.style.opacity = '0';
+      setTimeout(() => {
+        if (preview.parentNode) {
+          preview.remove();
+        }
+      }, 300);
+    }
   }
 
   positionMenu(x, y) {
@@ -117,16 +163,13 @@ export default class ContextMenu extends Menu {
     const maxX = window.innerWidth - offsetWidth - padding;
     const maxY = window.innerHeight - offsetHeight - padding;
 
-    // Умное позиционирование
     let finalX = Math.min(x, maxX);
     let finalY = Math.min(y, maxY);
 
-    // Если меню не помещается справа, показываем слева от курсора
     if (x + offsetWidth > window.innerWidth - padding) {
       finalX = Math.max(x - offsetWidth, padding);
     }
 
-    // Если меню не помещается снизу, показываем сверху от курсора
     if (y + offsetHeight > window.innerHeight - padding) {
       finalY = Math.max(y - offsetHeight, padding);
     }
@@ -136,37 +179,14 @@ export default class ContextMenu extends Menu {
   }
 
   close() {
-    // Удаляем обработчики событий
     document.removeEventListener('click', this.handleOutsideClick);
     document.removeEventListener('keydown', this.handleEscapeKey);
 
-    this.el.classList.remove('open', 'glow');
+    this.el.classList.remove('open', 'glow', 'gradient-changing');
     this.visible = false;
   }
 
   add(module) {
     this.modules.push(module);
-  }
-
-  // Дополнительный метод для программного управления свечением
-  toggleGlow(force) {
-    if (force !== undefined) {
-      this.el.classList.toggle('glow', force);
-    } else {
-      this.el.classList.toggle('glow');
-    }
-  }
-
-  // Метод для изменения цветовой схемы свечения
-  setGlowColors(primary, secondary, tertiary) {
-    if (primary) {
-      document.documentElement.style.setProperty('--glow-primary', primary);
-    }
-    if (secondary) {
-      document.documentElement.style.setProperty('--glow-secondary', secondary);
-    }
-    if (tertiary) {
-      document.documentElement.style.setProperty('--glow-tertiary', tertiary);
-    }
   }
 }

@@ -20,21 +20,15 @@ function application() {
       },
     });
 
-    menu.add({
-      type: 'GGGGGG',
-      trigger() {
-        alert('Alert from context menu!');
-      },
-    });
+    const bg = new BackgroundModule();
 
     menu.add({
-      type: 'Alert',
+      type: bg.type, // или 'Random Background'
       trigger() {
-        alert('Alert from context menu!');
+        console.log('[DEBUG] BackgroundModule trigger вызван вручную!');
+        bg.trigger();
       },
     });
-
-    menu.add(new BackgroundModule());
 
     document.addEventListener('contextmenu', (event) => {
       event.preventDefault();
@@ -44,4 +38,6 @@ function application() {
   };
 }
 
-application()();
+document.addEventListener('DOMContentLoaded', () => {
+  application()();
+});
