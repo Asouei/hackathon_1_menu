@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
 
 :root {
     --item-delay: 80ms;
@@ -22,13 +22,8 @@
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    background: linear-gradient(135deg,
-    #0a0a1a 0%,
-    #1a0a2a 25%,
-    #0a1a2a 50%,
-    #2a0a1a 75%,
-    #0a2a0a 100%);
+    font-family: "Roboto", sans-serif;
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2a 25%, #0a1a2a 50%, #2a0a1a 75%, #0a2a0a 100%);
     background-attachment: fixed;
     min-height: 100vh;
     padding: 2rem;
@@ -37,16 +32,15 @@ body {
 }
 
 body::before {
-    content: '';
+    content: "";
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background:
-            radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.05) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(136, 68, 255, 0.05) 0%, transparent 50%),
-            radial-gradient(circle at 40% 40%, rgba(0, 204, 255, 0.03) 0%, transparent 50%);
+    background: radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(136, 68, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(0, 204, 255, 0.03) 0%, transparent 50%);
     pointer-events: none;
     z-index: -1;
 }
@@ -65,9 +59,9 @@ body::before {
     border: 1px solid var(--glass-border);
     overflow: hidden;
     box-shadow:
-            0 8px 32px rgba(0, 0, 0, 0.3),
-            0 2px 8px rgba(0, 0, 0, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 2px 8px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     transform: scale(0.9) translateY(-10px);
     opacity: 0;
@@ -81,8 +75,8 @@ body::before {
 
 .menu.glow {
     animation:
-            glowPulse 3s ease-in-out infinite,
-            glowRotate 8s linear infinite;
+        glowPulse 3s ease-in-out infinite,
+        glowRotate 8s linear infinite;
 }
 
 .menu .menu-item {
@@ -104,7 +98,7 @@ body::before {
 }
 
 .menu .menu-item::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: -100%;
@@ -120,7 +114,7 @@ body::before {
 }
 
 .menu .menu-item::after {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     border-radius: inherit;
@@ -201,21 +195,22 @@ body::before {
 }
 
 @keyframes glowPulse {
-    0%, 100% {
+    0%,
+    100% {
         box-shadow:
-                0 0 10px rgba(0, 255, 136, 0.3),
-                0 0 20px rgba(136, 68, 255, 0.2),
-                0 0 30px rgba(0, 204, 255, 0.1),
-                0 8px 32px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            0 0 10px rgba(0, 255, 136, 0.3),
+            0 0 20px rgba(136, 68, 255, 0.2),
+            0 0 30px rgba(0, 204, 255, 0.1),
+            0 8px 32px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
     50% {
         box-shadow:
-                0 0 20px rgba(0, 255, 136, 0.4),
-                0 0 40px rgba(136, 68, 255, 0.3),
-                0 0 60px rgba(0, 204, 255, 0.2),
-                0 12px 40px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            0 0 20px rgba(0, 255, 136, 0.4),
+            0 0 40px rgba(136, 68, 255, 0.3),
+            0 0 60px rgba(0, 204, 255, 0.2),
+            0 12px 40px rgba(0, 0, 0, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
 }
 
@@ -229,33 +224,50 @@ body::before {
 }
 
 @keyframes itemGlowPulse {
-    0%, 100% {
+    0%,
+    100% {
         box-shadow:
-                0 0 6px rgba(255, 255, 255, 0.2),
-                0 0 12px rgba(255, 255, 255, 0.1);
+            0 0 6px rgba(255, 255, 255, 0.2),
+            0 0 12px rgba(255, 255, 255, 0.1);
     }
     50% {
         box-shadow:
-                0 0 12px rgba(255, 255, 255, 0.35),
-                0 0 24px rgba(255, 255, 255, 0.2);
+            0 0 12px rgba(255, 255, 255, 0.35),
+            0 0 24px rgba(255, 255, 255, 0.2);
     }
 }
 
 /* Улучшенная анимация появления пунктов */
-.menu .menu-item:nth-child(1) { animation-delay: calc(var(--item-delay) * 0); }
-.menu .menu-item:nth-child(2) { animation-delay: calc(var(--item-delay) * 1); }
-.menu .menu-item:nth-child(3) { animation-delay: calc(var(--item-delay) * 2); }
-.menu .menu-item:nth-child(4) { animation-delay: calc(var(--item-delay) * 3); }
-.menu .menu-item:nth-child(5) { animation-delay: calc(var(--item-delay) * 4); }
-.menu .menu-item:nth-child(6) { animation-delay: calc(var(--item-delay) * 5); }
-.menu .menu-item:nth-child(7) { animation-delay: calc(var(--item-delay) * 6); }
-.menu .menu-item:nth-child(8) { animation-delay: calc(var(--item-delay) * 7); }
-.menu .menu-item:nth-child(9) { animation-delay: calc(var(--item-delay) * 8); }
-.menu .menu-item:nth-child(10) { animation-delay: calc(var(--item-delay) * 9); }
-
-
-
-
+.menu .menu-item:nth-child(1) {
+    animation-delay: calc(var(--item-delay) * 0);
+}
+.menu .menu-item:nth-child(2) {
+    animation-delay: calc(var(--item-delay) * 1);
+}
+.menu .menu-item:nth-child(3) {
+    animation-delay: calc(var(--item-delay) * 2);
+}
+.menu .menu-item:nth-child(4) {
+    animation-delay: calc(var(--item-delay) * 3);
+}
+.menu .menu-item:nth-child(5) {
+    animation-delay: calc(var(--item-delay) * 4);
+}
+.menu .menu-item:nth-child(6) {
+    animation-delay: calc(var(--item-delay) * 5);
+}
+.menu .menu-item:nth-child(7) {
+    animation-delay: calc(var(--item-delay) * 6);
+}
+.menu .menu-item:nth-child(8) {
+    animation-delay: calc(var(--item-delay) * 7);
+}
+.menu .menu-item:nth-child(9) {
+    animation-delay: calc(var(--item-delay) * 8);
+}
+.menu .menu-item:nth-child(10) {
+    animation-delay: calc(var(--item-delay) * 9);
+}
 
 /* Контейнер для всех тостов */
 .toast-container {
@@ -282,9 +294,9 @@ body::before {
     -webkit-backdrop-filter: blur(16px) saturate(130%);
     border: 1px solid var(--glass-border);
     box-shadow:
-            0 6px 24px rgba(0, 0, 0, 0.25),
-            0 2px 6px rgba(0, 0, 0, 0.15),
-            inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        0 6px 24px rgba(0, 0, 0, 0.25),
+        0 2px 6px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
     position: relative;
     overflow: hidden;
 
@@ -381,12 +393,7 @@ body::before {
     bottom: 0;
     left: 0;
     height: 3px;
-    background: linear-gradient(
-            90deg,
-            var(--glow-primary) 0%,
-            var(--glow-tertiary) 50%,
-            var(--glow-secondary) 100%
-    );
+    background: linear-gradient(90deg, var(--glow-primary) 0%, var(--glow-tertiary) 50%, var(--glow-secondary) 100%);
     border-radius: 0 0 16px 16px;
     transform-origin: left;
     animation: toastProgress 2s linear forwards;
@@ -394,18 +401,13 @@ body::before {
 
 /* Подсветка фона при наведении */
 .toast::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(255, 255, 255, 0.04),
-            transparent
-    );
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.04), transparent);
     transition: left 0.6s ease;
     z-index: 1;
 }
@@ -416,15 +418,15 @@ body::before {
 
 /* Легкое свечение */
 .toast::after {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     border-radius: inherit;
     background: linear-gradient(
-            135deg,
-            rgba(255, 255, 255, 0.03) 0%,
-            rgba(255, 255, 255, 0) 50%,
-            rgba(255, 255, 255, 0.02) 100%
+        135deg,
+        rgba(255, 255, 255, 0.03) 0%,
+        rgba(255, 255, 255, 0) 50%,
+        rgba(255, 255, 255, 0.02) 100%
     );
     opacity: 0;
     pointer-events: none;
@@ -530,4 +532,106 @@ body::before {
     .toast-message {
         font-size: 13px;
     }
+}
+
+/* Таймер */
+.timer-modal {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 380px;
+    padding: 20px;
+    border-radius: 24px;
+    background: rgba(40, 40, 70, 0.6);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    color: white;
+    z-index: 9999;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.circular-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.circle {
+    width: 90px;
+    height: 90px;
+    position: relative;
+}
+
+.circle svg {
+    width: 90px;
+    height: 90px;
+    transform: rotate(-90deg);
+}
+
+.circle circle {
+    fill: none;
+    stroke-width: 10;
+    cx: 45;
+    cy: 45;
+    r: 40;
+    stroke-dasharray: 251.2;
+    stroke-dashoffset: 251.2;
+    transition: stroke-dashoffset 0.1s linear;
+}
+
+.circle .bg {
+    stroke: rgba(255, 255, 255, 0.1);
+}
+
+.circle .progress {
+    stroke: limegreen;
+}
+
+.circle .text {
+    position: absolute;
+    top: 16px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.circle .text span {
+    display: block;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.timer-controls {
+    display: flex;
+    gap: 12px;
+}
+
+.timer-controls input {
+    flex: 1;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: none;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    outline: none;
+}
+
+.timer-controls button {
+    padding: 10px 18px;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+
+.timer-controls button:hover {
+    background: rgba(255, 255, 255, 0.3);
 }
