@@ -3,7 +3,6 @@ import ContextMenu from './menu';
 import CountdownTimer from './modules/countdownTimer.js';
 import BackgroundModule from './modules/background.module';
 
-
 function application() {
   return () => {
     const menu = new ContextMenu('.menu');
