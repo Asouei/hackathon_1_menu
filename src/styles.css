@@ -99,397 +99,13 @@ body::before {
     transform: scale(0.9) translateY(-10px);
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.3s ease;
 }
-
-.toast:hover::after {
-    opacity: 1;
-}
-
-/* Типы тостов */
-.toast.success {
-    border-left: 3px solid var(--glow-primary);
-}
-
-.toast.success .toast-icon {
-    color: var(--glow-primary);
-}
-
-.toast.error {
-    border-left: 3px solid #ff4757;
-}
-
-.toast.error .toast-icon {
-    color: #ff4757;
-}
-
-.toast.warning {
-    border-left: 3px solid #ffa502;
-}
-
-.toast.warning .toast-icon {
-    color: #ffa502;
-}
-
-.toast.info {
-    border-left: 3px solid var(--glow-tertiary);
-}
-
-.toast.info .toast-icon {
-    color: var(--glow-tertiary);
-}
-
-/* Специальные тосты с градиентами */
-.toast.gradient-notification {
-    border-left: 3px solid transparent;
-    background: linear-gradient(var(--glass-bg), var(--glass-bg)) padding-box,
-    linear-gradient(45deg, var(--glow-primary), var(--glow-tertiary), var(--glow-secondary)) border-box;
-}
-
-.toast.gradient-notification::before {
-    background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(0, 255, 136, 0.08),
-            rgba(0, 204, 255, 0.08),
-            rgba(136, 68, 255, 0.08),
-            transparent
-    );
-}
-
-.toast.gradient-notification .toast-progress {
-    background: linear-gradient(
-            90deg,
-            var(--glow-primary) 0%,
-            var(--glow-tertiary) 33%,
-            var(--glow-secondary) 66%,
-            var(--glow-primary) 100%
-    );
-    background-size: 200% 100%;
-    animation:
-            toastProgress 3s linear forwards,
-            gradientShift 2s ease-in-out infinite;
-}
-
-/* Превью градиента в тосте */
-.toast .gradient-preview {
-    width: 20px;
-    height: 20px;
-    border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    flex-shrink: 0;
-    transition: transform 0.2s ease;
-    animation: gradientPreviewPulse 2s ease-in-out infinite;
-    align-self: center;
-}
-
-.toast:hover .gradient-preview {
-    transform: scale(1.1);
-}
-
-/* ========================================
-   ЦВЕТОВЫЕ ПАЛИТРЫ
-======================================== */
-.color-palette {
-    position: fixed;
-    width: 120px;
-    height: 40px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: var(--palette-radius);
-    cursor: pointer;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    opacity: 0;
-    transform: scale(0.8) translateY(20px);
-}
-
-.color-palette:hover {
-    transform: scale(1.1) !important;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
-}
-
-.palette-content {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 12px;
-    font-weight: 500;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-.color-swatch {
-    width: 20px;
-    height: 20px;
-    border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.color-code {
-    font-family: 'Courier New', monospace;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-}
-
-.copy-indicator {
-    position: absolute;
-    top: -30px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 11px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-    white-space: nowrap;
-}
-
-/* ========================================
-   АНИМАЦИИ
-======================================== */
-
-/* Анимации появления пунктов меню */
-@keyframes itemSlideFromTop {
-    0% {
-        opacity: 0;
-        transform: translateY(-15px) scale(0.95);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-/* Анимации тостов */
-@keyframes toastSlideIn {
-    0% {
-        transform: translateX(100%) scale(0.9);
-        opacity: 0;
-    }
-    100% {
-        transform: translateX(0) scale(1);
-        opacity: 1;
-    }
-}
-
-@keyframes toastSlideOut {
-    0% {
-        transform: translateX(0) scale(1);
-        opacity: 1;
-        max-height: 200px;
-        margin-bottom: 12px;
-    }
-    100% {
-        transform: translateX(100%) scale(0.9);
-        opacity: 0;
-        max-height: 0;
-        margin-bottom: 0;
-        padding-top: 0;
-        padding-bottom: 0;
-    }
-}
-
-@keyframes toastProgress {
-    0% {
-        transform: scaleX(1);
-        opacity: 0.8;
-    }
-    100% {
-        transform: scaleX(0);
-        opacity: 0;
-    }
-}
-
-/* Анимации палитр */
-@keyframes paletteAppear {
-    0% {
-        opacity: 0;
-        transform: scale(0.8) translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-}
-
-/* Анимации свечения */
-@keyframes glowPulse {
-    0%, 100% {
-        box-shadow:
-                0 0 10px rgba(0, 255, 136, 0.3),
-                0 0 20px rgba(136, 68, 255, 0.2),
-                0 0 30px rgba(0, 204, 255, 0.1),
-                0 8px 32px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-    50% {
-        box-shadow:
-                0 0 20px rgba(0, 255, 136, 0.4),
-                0 0 40px rgba(136, 68, 255, 0.3),
-                0 0 60px rgba(0, 204, 255, 0.2),
-                0 12px 40px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-}
-
-@keyframes glowRotate {
-    0% {
-        filter: hue-rotate(0deg);
-    }
-    100% {
-        filter: hue-rotate(360deg);
-    }
-}
-
-@keyframes gradientMenuPulse {
-    0%, 100% {
-        box-shadow:
-                0 0 10px rgba(0, 255, 136, 0.2),
-                0 0 20px rgba(136, 68, 255, 0.15),
-                0 0 30px rgba(0, 204, 255, 0.1),
-                0 8px 32px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-    50% {
-        box-shadow:
-                0 0 20px rgba(0, 255, 136, 0.4),
-                0 0 40px rgba(136, 68, 255, 0.3),
-                0 0 60px rgba(0, 204, 255, 0.2),
-                0 12px 40px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.15);
-    }
-}
-
-@keyframes gradientShift {
-    0%, 100% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-}
-
-@keyframes gradientPreviewPulse {
-    0%, 100% {
-        box-shadow:
-                0 2px 8px rgba(0, 0, 0, 0.3),
-                0 0 0 0 rgba(255, 255, 255, 0.2);
-    }
-    50% {
-        box-shadow:
-                0 4px 12px rgba(0, 0, 0, 0.4),
-                0 0 0 2px rgba(255, 255, 255, 0.3);
-    }
-}
-
-/* Анимация для нового градиента на body */
-@keyframes newGradientApplied {
-    0% {
-        filter: brightness(1) saturate(1);
-    }
-    50% {
-        filter: brightness(1.1) saturate(1.2);
-    }
-    100% {
-        filter: brightness(1) saturate(1);
-    }
-}
-
-body.gradient-applied {
-    animation: newGradientApplied 1.5s ease-in-out;
-}
-
-/* ========================================
-   ЗАДЕРЖКИ АНИМАЦИЙ ДЛЯ ПУНКТОВ МЕНЮ
-======================================== */
-.menu .menu-item:nth-child(1) { animation-delay: calc(var(--item-delay) * 0); }
-.menu .menu-item:nth-child(2) { animation-delay: calc(var(--item-delay) * 1); }
-.menu .menu-item:nth-child(3) { animation-delay: calc(var(--item-delay) * 2); }
-.menu .menu-item:nth-child(4) { animation-delay: calc(var(--item-delay) * 3); }
-.menu .menu-item:nth-child(5) { animation-delay: calc(var(--item-delay) * 4); }
-.menu .menu-item:nth-child(6) { animation-delay: calc(var(--item-delay) * 5); }
-.menu .menu-item:nth-child(7) { animation-delay: calc(var(--item-delay) * 6); }
-.menu .menu-item:nth-child(8) { animation-delay: calc(var(--item-delay) * 7); }
-.menu .menu-item:nth-child(9) { animation-delay: calc(var(--item-delay) * 8); }
-.menu .menu-item:nth-child(10) { animation-delay: calc(var(--item-delay) * 9); }
-
-/* ========================================
-   АДАПТИВНОСТЬ
-======================================== */
-@media (max-width: 768px) {
-    .menu {
-        min-width: 240px;
-    }
-
-    .menu .menu-item {
-        padding: 14px 20px;
-        font-size: 14px;
-    }
-
-    .toast-container {
-        top: 10px;
-        right: 10px;
-        left: 10px;
-        max-width: none;
-    }
-
-    .toast {
-        min-width: 280px;
-        max-width: none;
-        width: 100%;
-    }
-
-    .toast-title {
-        font-size: 14px;
-    }
-
-    .toast-message {
-        font-size: 13px;
-    }
-
-    .toast .gradient-preview {
-        width: 32px;
-        height: 16px;
-    }
-
-    .color-palette {
-        width: 100px;
-        height: 36px;
-    }
-
-    .palette-content {
-        gap: 6px;
-    }
-
-    .color-swatch {
-        width: 16px;
-        height: 16px;
-    }
-
-    .color-code {
-        font-size: 10px;
-    }
-
-    body {
-        transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-}
-
 
 .menu.open {
     opacity: 1;
     transform: scale(1) translateY(0);
     display: block;
+    pointer-events: auto;
 }
 
 .menu.glow {
@@ -545,7 +161,7 @@ body.gradient-applied {
     border-radius: inherit;
     background: linear-gradient(to top, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0) 60%);
     opacity: 0;
-    pointer-events: auto;
+    pointer-events: none;
     transition: opacity 0.3s ease;
 }
 
@@ -798,16 +414,99 @@ body.gradient-applied {
             rgba(255, 255, 255, 0) 50%,
             rgba(255, 255, 255, 0.02) 100%
     );
-    opacity: 0;}
-
-
-.toast-content {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
+.toast:hover::after {
+    opacity: 1;
+}
 
+/* Типы тостов */
+.toast.success {
+    border-left: 3px solid var(--glow-primary);
+}
+
+.toast.success .toast-icon {
+    color: var(--glow-primary);
+}
+
+.toast.error {
+    border-left: 3px solid #ff4757;
+}
+
+.toast.error .toast-icon {
+    color: #ff4757;
+}
+
+.toast.warning {
+    border-left: 3px solid #ffa502;
+}
+
+.toast.warning .toast-icon {
+    color: #ffa502;
+}
+
+.toast.info {
+    border-left: 3px solid var(--glow-tertiary);
+}
+
+.toast.info .toast-icon {
+    color: var(--glow-tertiary);
+}
+
+/* Специальные тосты с градиентами */
+.toast.gradient-notification {
+    border-left: 3px solid transparent;
+    background: linear-gradient(var(--glass-bg), var(--glass-bg)) padding-box,
+    linear-gradient(45deg, var(--glow-primary), var(--glow-tertiary), var(--glow-secondary)) border-box;
+}
+
+.toast.gradient-notification::before {
+    background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(0, 255, 136, 0.08),
+            rgba(0, 204, 255, 0.08),
+            rgba(136, 68, 255, 0.08),
+            transparent
+    );
+}
+
+.toast.gradient-notification .toast-progress {
+    background: linear-gradient(
+            90deg,
+            var(--glow-primary) 0%,
+            var(--glow-tertiary) 33%,
+            var(--glow-secondary) 66%,
+            var(--glow-primary) 100%
+    );
+    background-size: 200% 100%;
+    animation:
+            toastProgress 3s linear forwards,
+            gradientShift 2s ease-in-out infinite;
+}
+
+/* Превью градиента в тосте */
+.toast .gradient-preview {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+    animation: gradientPreviewPulse 2s ease-in-out infinite;
+    align-self: center;
+}
+
+.toast:hover .gradient-preview {
+    transform: scale(1.1);
+}
+
+/* ========================================
+   ЦВЕТОВЫЕ ПАЛИТРЫ
+======================================== */
 .color-palette {
     position: fixed;
     width: 120px;
@@ -924,7 +623,256 @@ body.gradient-applied {
     opacity: 1;
 }
 
-/* Анимации для палитр */
+/* Специальная анимация для палитр градиента */
+.gradient-palette {
+    animation: palettePulse 2s ease-in-out infinite;
+}
+
+.gradient-palette .color-swatch {
+    animation: gradientPreviewPulse 2s ease-in-out infinite;
+}
+
+/* Эффект наведения курсора для всей палитры */
+.color-palette::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.05));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.color-palette:hover::after {
+    opacity: 1;
+}
+
+/* ========================================
+   ТАЙМЕР МОДУЛЬ
+======================================== */
+
+/* Модальное окно таймера */
+.timer-modal {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 380px;
+    padding: 20px;
+    border-radius: 24px;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 2px 8px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    z-index: 9999;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Контейнер для круговых индикаторов */
+.circular-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+/* Круговой индикатор */
+.circle {
+    width: 90px;
+    height: 90px;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.circle svg {
+    width: 90px;
+    height: 90px;
+    transform: rotate(-90deg);
+}
+
+.circle circle {
+    fill: none;
+    stroke-width: 10;
+    cx: 45;
+    cy: 45;
+    r: 40;
+    stroke-dasharray: 251.2;
+    stroke-dashoffset: 251.2;
+    transition: stroke-dashoffset 0.1s linear;
+}
+
+/* Фоновая окружность */
+.circle .bg {
+    stroke: rgba(255, 255, 255, 0.1);
+}
+
+/* Прогресс окружность */
+.circle .progress {
+    stroke: var(--glow-primary);
+    filter: drop-shadow(0 0 8px rgba(0, 255, 136, 0.4));
+}
+
+/* Текст внутри круга */
+.circle .text {
+    position: absolute;
+    top: 16px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--text-hover);
+    text-shadow: var(--text-shadow);
+}
+
+.circle .text span {
+    display: block;
+    font-size: 12px;
+    color: var(--text-color);
+    font-weight: 400;
+    margin-top: 2px;
+}
+
+/* Контролы таймера */
+.timer-controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.timer-controls input {
+    flex: 1;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-hover);
+    outline: none;
+    font-family: 'Roboto', sans-serif;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+
+.timer-controls input:focus {
+    border-color: var(--glow-primary);
+    box-shadow: 0 0 0 2px rgba(0, 255, 136, 0.2);
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.timer-controls input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.timer-controls button {
+    padding: 10px 18px;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-hover);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.timer-controls button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.timer-controls button:hover::before {
+    left: 100%;
+}
+
+.timer-controls button:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--glow-primary);
+    box-shadow: 0 0 0 1px rgba(0, 255, 136, 0.3);
+    transform: translateY(-1px);
+}
+
+.timer-controls button:active {
+    transform: translateY(0);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* ========================================
+   АНИМАЦИИ
+======================================== */
+
+/* Анимации появления пунктов меню */
+@keyframes itemSlideFromTop {
+    0% {
+        opacity: 0;
+        transform: translateY(-15px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Анимации тостов */
+@keyframes toastSlideIn {
+    0% {
+        transform: translateX(100%) scale(0.9);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes toastSlideOut {
+    0% {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+        max-height: 200px;
+        margin-bottom: 12px;
+    }
+    100% {
+        transform: translateX(100%) scale(0.9);
+        opacity: 0;
+        max-height: 0;
+        margin-bottom: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+@keyframes toastProgress {
+    0% {
+        transform: scaleX(1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scaleX(0);
+        opacity: 0;
+    }
+}
+
+/* Анимации палитр */
 @keyframes paletteAppear {
     0% {
         opacity: 0;
@@ -961,8 +909,146 @@ body.gradient-applied {
     }
 }
 
-/* Адаптивность для палитр */
+/* Анимации свечения */
+@keyframes glowPulse {
+    0%, 100% {
+        box-shadow:
+                0 0 10px rgba(0, 255, 136, 0.3),
+                0 0 20px rgba(136, 68, 255, 0.2),
+                0 0 30px rgba(0, 204, 255, 0.1),
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+    50% {
+        box-shadow:
+                0 0 20px rgba(0, 255, 136, 0.4),
+                0 0 40px rgba(136, 68, 255, 0.3),
+                0 0 60px rgba(0, 204, 255, 0.2),
+                0 12px 40px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+}
+
+@keyframes glowRotate {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+@keyframes gradientMenuPulse {
+    0%, 100% {
+        box-shadow:
+                0 0 10px rgba(0, 255, 136, 0.2),
+                0 0 20px rgba(136, 68, 255, 0.15),
+                0 0 30px rgba(0, 204, 255, 0.1),
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+    50% {
+        box-shadow:
+                0 0 20px rgba(0, 255, 136, 0.4),
+                0 0 40px rgba(136, 68, 255, 0.3),
+                0 0 60px rgba(0, 204, 255, 0.2),
+                0 12px 40px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+}
+
+@keyframes gradientShift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes gradientPreviewPulse {
+    0%, 100% {
+        box-shadow:
+                0 2px 8px rgba(0, 0, 0, 0.3),
+                0 0 0 0 rgba(255, 255, 255, 0.2);
+    }
+    50% {
+        box-shadow:
+                0 4px 12px rgba(0, 0, 0, 0.4),
+                0 0 0 2px rgba(255, 255, 255, 0.3);
+    }
+}
+
+/* Анимация для нового градиента на body */
+@keyframes newGradientApplied {
+    0% {
+        filter: brightness(1) saturate(1);
+    }
+    50% {
+        filter: brightness(1.1) saturate(1.2);
+    }
+    100% {
+        filter: brightness(1) saturate(1);
+    }
+}
+
+body.gradient-applied {
+    animation: newGradientApplied 1.5s ease-in-out;
+}
+
+/* ========================================
+   ЗАДЕРЖКИ АНИМАЦИЙ ДЛЯ ПУНКТОВ МЕНЮ
+======================================== */
+.menu .menu-item:nth-child(1) { animation-delay: calc(var(--item-delay) * 0); }
+.menu .menu-item:nth-child(2) { animation-delay: calc(var(--item-delay) * 1); }
+.menu .menu-item:nth-child(3) { animation-delay: calc(var(--item-delay) * 2); }
+.menu .menu-item:nth-child(4) { animation-delay: calc(var(--item-delay) * 3); }
+.menu .menu-item:nth-child(5) { animation-delay: calc(var(--item-delay) * 4); }
+.menu .menu-item:nth-child(6) { animation-delay: calc(var(--item-delay) * 5); }
+.menu .menu-item:nth-child(7) { animation-delay: calc(var(--item-delay) * 6); }
+.menu .menu-item:nth-child(8) { animation-delay: calc(var(--item-delay) * 7); }
+.menu .menu-item:nth-child(9) { animation-delay: calc(var(--item-delay) * 8); }
+.menu .menu-item:nth-child(10) { animation-delay: calc(var(--item-delay) * 9); }
+
+/* ========================================
+   АДАПТИВНОСТЬ
+======================================== */
 @media (max-width: 768px) {
+    .menu {
+        min-width: 240px;
+    }
+
+    .menu .menu-item {
+        padding: 14px 20px;
+        font-size: 14px;
+    }
+
+    .toast-container {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+
+    .toast {
+        min-width: 280px;
+        max-width: none;
+        width: 100%;
+    }
+
+    .toast-title {
+        font-size: 14px;
+    }
+
+    .toast-message {
+        font-size: 13px;
+    }
+
+    .toast .gradient-preview {
+        width: 32px;
+        height: 16px;
+    }
+
     .color-palette {
         width: 100px;
         height: 36px;
@@ -986,35 +1072,53 @@ body.gradient-applied {
         padding: 3px 6px;
         top: -30px;
     }
-}
 
-/* Специальная анимация для палитр градиента */
-.gradient-palette {
-    animation: palettePulse 2s ease-in-out infinite;
-}
+    /* Адаптивность таймера */
+    .timer-modal {
+        width: 340px;
+        padding: 16px;
+        top: 10px;
+        right: 10px;
+    }
 
-.gradient-palette .color-swatch {
-    animation: gradientPreviewPulse 2s ease-in-out infinite;
-}
+    .circular-container {
+        gap: 8px;
+    }
 
-/* Эффект наведения курсора для всей палитры */
-.color-palette {
-    position: relative;
-    overflow: visible;
-}
+    .circle {
+        width: 80px;
+        height: 80px;
+    }
 
-.color-palette::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: linear-gradient(135deg,
-    rgba(255, 255, 255, 0.1),
-    rgba(255, 255, 255, 0.05));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
+    .circle svg {
+        width: 80px;
+        height: 80px;
+    }
 
-.color-palette:hover::after {
-    opacity: 1;
+    .circle circle {
+        cx: 40;
+        cy: 40;
+        r: 35;
+        stroke-dasharray: 219.8;
+        stroke-dashoffset: 219.8;
+    }
+
+    .circle .text {
+        top: 14px;
+        font-size: 18px;
+    }
+
+    .timer-controls input {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+
+    .timer-controls button {
+        padding: 8px 14px;
+        font-size: 14px;
+    }
+
+    body {
+        transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 }

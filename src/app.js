@@ -1,15 +1,18 @@
 import './styles.css';
 import ContextMenu from './menu';
+import CountdownTimer from './modules/countdownTimer.js';
 import BackgroundModule from './modules/background.module';
+
 
 function application() {
   return () => {
     const menu = new ContextMenu('.menu');
+    const timer = new CountdownTimer();
 
     menu.add({
-      type: 'Log Hello',
+      type: 'Таймер',
       trigger() {
-        console.log('Hello from menu!');
+        timer.trigger();
       },
     });
 
