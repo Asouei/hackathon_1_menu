@@ -20,7 +20,7 @@ function application() {
     });
 
     menu.add({
-      type: 'Alert',
+      type: 'GGGGGG',
       trigger() {
         alert('Alert from context menu!');
       },
