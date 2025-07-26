@@ -1,6 +1,8 @@
 import './styles.css';
 import ContextMenu from './menu';
 import CountdownTimer from './modules/countdownTimer.js';
+import BackgroundModule from './modules/background.module';
+
 
 function application() {
   return () => {
@@ -21,24 +23,13 @@ function application() {
       },
     });
 
-    menu.add({
-      type: 'GGGGGG',
-      trigger() {
-        alert('Alert from context menu!');
-      },
-    });
+    const bg = new BackgroundModule();
 
     menu.add({
-      type: 'Alert',
+      type: bg.type, // или 'Random Background'
       trigger() {
-        alert('Alert from context menu!');
-      },
-    });
-
-    menu.add({
-      type: 'Alert',
-      trigger() {
-        alert('Alert from context menu!');
+        console.log('[DEBUG] BackgroundModule trigger вызван вручную!');
+        bg.trigger();
       },
     });
 
@@ -50,4 +41,6 @@ function application() {
   };
 }
 
-application()();
+document.addEventListener('DOMContentLoaded', () => {
+  application()();
+});
