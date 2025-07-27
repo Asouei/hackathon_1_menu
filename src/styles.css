@@ -1567,3 +1567,49 @@ body.gradient-applied {
         animation: gentleMotion 15s ease-in-out infinite;
     }
 }
+
+/* Исправление первого элемента - убираем полоску */
+.menu .menu-item:first-child {
+    border-top: none !important;
+}
+
+/* Центрирование на мобильных */
+@media (max-width: 768px) {
+    .menu.force-center {
+        left: 50% !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        max-width: calc(100vw - 40px) !important;
+    }
+
+    /* Затемнение фона */
+    .menu.force-center.open::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: -1;
+        backdrop-filter: blur(3px);
+        pointer-events: none;
+    }
+
+    /* Увеличиваем размер пунктов для удобства тапа */
+    .menu .menu-item {
+        padding: 18px 24px !important;
+        font-size: 16px !important;
+        min-height: 50px !important;
+    }
+
+    /* Убираем drag handle на мобильных */
+    .timer-modal .drag-handle {
+        display: none !important;
+    }
+
+    /* Корректируем header без drag handle */
+    .timer-modal .timer-header {
+        justify-content: flex-end !important;
+    }
+}
