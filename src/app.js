@@ -36,9 +36,6 @@ function application() {
   };
 }
 
-
 document.addEventListener('DOMContentLoaded', () => {
   application()();
 });
-
-
