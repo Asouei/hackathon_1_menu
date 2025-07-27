@@ -45,6 +45,11 @@ export default class ContextMenu extends Menu {
     };
   }
 
+  // ДОБАВИЛИ: Проверка мобильного устройства
+  isMobileDevice() {
+    return window.innerWidth <= 768;
+  }
+
   addGradientChangeEffect() {
     // Добавляем класс для анимации смены градиента
     this.el.classList.add('gradient-changing');
@@ -63,6 +68,8 @@ export default class ContextMenu extends Menu {
       document.body.appendChild(this.el);
     }
 
+    // ДОБАВИЛИ: Сброс классов принудительного позиционирования
+    this.el.classList.remove('force-center', 'force-bottom', 'force-top');
     this.el.innerHTML = '';
 
     // Создаем элементы меню
@@ -97,16 +104,21 @@ export default class ContextMenu extends Menu {
       document.addEventListener('keydown', this.handleEscapeKey);
     }, 100);
 
-    // Запуск glow эффекта после появления всех элементов
-    const glowDelay = this.modules.length * 80 + 200;
-    setTimeout(() => {
-      if (this.visible) {
-        this.el.classList.add('glow');
-      }
-    }, glowDelay);
+    // ИЗМЕНИЛИ: Запуск glow эффекта только на десктопе
+    if (!this.isMobileDevice()) {
+      const glowDelay = this.modules.length * 80 + 200;
+      setTimeout(() => {
+        if (this.visible) {
+          this.el.classList.add('glow');
+        }
+      }, glowDelay);
+    }
   }
 
   enhanceBackgroundMenuItem(item) {
+    // ИЗМЕНИЛИ: Hover эффекты только на десктопе
+    if (this.isMobileDevice()) return;
+
     // Специальные hover эффекты для Background пункта
     item.addEventListener('mouseenter', () => {
       // Показываем мини превью
@@ -120,6 +132,9 @@ export default class ContextMenu extends Menu {
   }
 
   enhanceMenuItem(item) {
+    // ИЗМЕНИЛИ: Hover эффекты только на десктопе
+    if (this.isMobileDevice()) return;
+
     // Обычные эффекты для остальных пунктов
     item.addEventListener('mouseenter', () => {
       item.style.transform = 'translateX(6px) scale(1.02)';
@@ -158,6 +173,15 @@ export default class ContextMenu extends Menu {
   }
 
   positionMenu(x, y) {
+    // ДОБАВИЛИ: Центрирование на мобильных устройствах
+    if (this.isMobileDevice()) {
+      this.el.classList.add('force-center');
+      this.el.style.left = '';
+      this.el.style.top = '';
+      return;
+    }
+
+    // ОРИГИНАЛЬНАЯ логика для десктопа
     const { offsetWidth, offsetHeight } = this.el;
     const padding = 20;
     const maxX = window.innerWidth - offsetWidth - padding;
@@ -182,7 +206,8 @@ export default class ContextMenu extends Menu {
     document.removeEventListener('click', this.handleOutsideClick);
     document.removeEventListener('keydown', this.handleEscapeKey);
 
-    this.el.classList.remove('open', 'glow', 'gradient-changing');
+    // ДОБАВИЛИ: Убираем классы принудительного позиционирования
+    this.el.classList.remove('open', 'glow', 'gradient-changing', 'force-center', 'force-bottom', 'force-top');
     this.visible = false;
   }
 
