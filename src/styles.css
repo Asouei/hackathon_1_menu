@@ -2416,3 +2416,1067 @@ body.gradient-applied {
         font-size: clamp(0.8rem, 3vw, 1rem) !important;
     }
 }
+
+/* ========================================
+   AIM 400KG МОДУЛЬ - CYBERPUNK AIM TRAINER
+======================================== */
+
+/* Модальное окно старта */
+.aim400kg-modal {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(0, 0, 0, 0.8) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    z-index: 10000 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.aim400kg-modal-container {
+    width: 600px !important;
+    max-width: 90vw !important;
+    background: linear-gradient(135deg,
+    rgba(15, 15, 35, 0.9) 0%,
+    rgba(25, 15, 45, 0.9) 100%) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 2px solid rgba(0, 255, 136, 0.3) !important;
+    border-radius: 24px !important;
+    box-shadow:
+            0 20px 60px rgba(0, 0, 0, 0.5),
+            0 0 100px rgba(0, 255, 136, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+    overflow: hidden !important;
+    position: relative !important;
+}
+
+/* Эффект сканлайнов */
+.aim400kg-modal-container::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 255, 136, 0.03) 2px,
+            rgba(0, 255, 136, 0.03) 4px
+    ) !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+}
+
+.aim400kg-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 24px 30px 20px !important;
+    border-bottom: 1px solid rgba(0, 255, 136, 0.2) !important;
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.aim400kg-title {
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+}
+
+.title-main {
+    font-size: 32px !important;
+    font-weight: 900 !important;
+    background: linear-gradient(45deg, #00ff88, #00ccff, #8844ff) !important;
+    background-size: 200% 200% !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+}
+
+.stat-value {
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    color: #00ff88 !important;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5) !important;
+}
+
+#combo {
+    color: #00ccff !important;
+    text-shadow: 0 0 10px rgba(0, 204, 255, 0.5) !important;
+}
+
+#accuracy {
+    color: #8844ff !important;
+    text-shadow: 0 0 10px rgba(136, 68, 255, 0.5) !important;
+}
+
+/* Игровой прицел */
+.game-crosshair {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 30px !important;
+    height: 30px !important;
+    pointer-events: none !important;
+    opacity: 0.5 !important;
+    mix-blend-mode: difference !important;
+}
+
+.game-crosshair::before,
+.game-crosshair::after {
+    content: '' !important;
+    position: absolute !important;
+    background: #00ff88 !important;
+}
+
+.game-crosshair::before {
+    top: 50% !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 2px !important;
+    transform: translateY(-50%) !important;
+}
+
+.game-crosshair::after {
+    left: 50% !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    width: 2px !important;
+    transform: translateX(-50%) !important;
+}
+
+/* Игровые цели */
+.aim-target {
+    position: absolute !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    border-radius: 50% !important;
+    background: radial-gradient(circle,
+    rgba(255, 0, 100, 0.3) 0%,
+    rgba(255, 0, 100, 0.1) 40%,
+    transparent 70%) !important;
+    border: 3px solid #ff0064 !important;
+    box-shadow:
+            0 0 30px rgba(255, 0, 100, 0.8),
+            0 0 60px rgba(255, 0, 100, 0.4),
+            inset 0 0 20px rgba(255, 0, 100, 0.3) !important;
+    transition: all 0.1s ease !important;
+    z-index: 100 !important;
+}
+
+.aim-target::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 40% !important;
+    height: 40% !important;
+    background: radial-gradient(circle,
+    #ff0064 0%,
+    rgba(255, 0, 100, 0.5) 50%,
+    transparent 100%) !important;
+    border-radius: 50% !important;
+    animation: targetPulse 1s ease-in-out infinite !important;
+}
+
+.aim-target::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 10% !important;
+    height: 10% !important;
+    background: #ffffff !important;
+    border-radius: 50% !important;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8) !important;
+}
+
+.aim-target:hover {
+    transform: scale(1.1) !important;
+    border-color: #ff0088 !important;
+    box-shadow:
+            0 0 40px rgba(255, 0, 136, 1),
+            0 0 80px rgba(255, 0, 136, 0.6) !important;
+}
+
+@keyframes targetPulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.3);
+        opacity: 0.4;
+    }
+}
+
+/* Эффект взрыва */
+.target-explosion {
+    position: fixed !important;
+    width: 100px !important;
+    height: 100px !important;
+    pointer-events: none !important;
+    z-index: 200 !important;
+    transform: translate(-50%, -50%) !important;
+}
+
+.explosion-particle {
+    position: absolute !important;
+    width: 8px !important;
+    height: 8px !important;
+    background: #ff0064 !important;
+    border-radius: 50% !important;
+    top: 50% !important;
+    left: 50% !important;
+    box-shadow: 0 0 10px rgba(255, 0, 100, 0.8) !important;
+}
+
+/* Попап очков */
+.score-popup {
+    position: fixed !important;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    color: #00ff88 !important;
+    text-shadow:
+            0 0 20px rgba(0, 255, 136, 0.8),
+            0 2px 4px rgba(0, 0, 0, 0.5) !important;
+    pointer-events: none !important;
+    z-index: 300 !important;
+    transform: translateX(-50%) !important;
+    white-space: nowrap !important;
+}
+
+.score-popup.perfect {
+    color: #ffea00 !important;
+    text-shadow:
+            0 0 30px rgba(255, 234, 0, 0.8),
+            0 2px 4px rgba(0, 0, 0, 0.5) !important;
+    font-size: 28px !important;
+}
+
+.score-popup.great {
+    color: #00ccff !important;
+    text-shadow:
+            0 0 25px rgba(0, 204, 255, 0.8),
+            0 2px 4px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Сообщение о комбо */
+.combo-message {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    font-size: 48px !important;
+    font-weight: 900 !important;
+    color: #00ccff !important;
+    text-shadow:
+            0 0 40px rgba(0, 204, 255, 0.8),
+            0 4px 8px rgba(0, 0, 0, 0.5) !important;
+    pointer-events: none !important;
+    z-index: 400 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 4px !important;
+}
+
+/* ========================================
+   РЕЗУЛЬТАТЫ
+======================================== */
+
+.aim400kg-results-modal {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(0, 0, 0, 0.9) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    z-index: 10000 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.results-container {
+    width: 700px !important;
+    max-width: 90vw !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+    background: linear-gradient(135deg,
+    rgba(15, 15, 35, 0.95) 0%,
+    rgba(25, 15, 45, 0.95) 100%) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 2px solid rgba(0, 255, 136, 0.3) !important;
+    border-radius: 24px !important;
+    box-shadow:
+            0 20px 60px rgba(0, 0, 0, 0.5),
+            0 0 100px rgba(0, 255, 136, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+    padding: 40px !important;
+    position: relative !important;
+}
+
+/* Сканлайны для результатов */
+.results-container::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 255, 136, 0.03) 2px,
+            rgba(0, 255, 136, 0.03) 4px
+    ) !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+    border-radius: inherit !important;
+}
+
+.results-header {
+    text-align: center !important;
+    margin-bottom: 30px !important;
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.results-title {
+    font-size: 32px !important;
+    font-weight: 900 !important;
+    margin: 0 0 20px 0 !important;
+    background: linear-gradient(45deg, #00ff88, #00ccff, #8844ff) !important;
+    background-size: 200% 200% !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    text-transform: uppercase !important;
+    letter-spacing: 3px !important;
+    animation: gradientShift 3s ease-in-out infinite !important;
+}
+
+/* Отображение ранга */
+.rank-display {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 16px !important;
+    padding: 20px 40px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 2px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 100px !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.rank-display::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent) !important;
+    animation: rankShine 2s ease-in-out infinite !important;
+}
+
+@keyframes rankShine {
+    0% { left: -100%; }
+    50%, 100% { left: 100%; }
+}
+
+.rank-icon {
+    font-size: 48px !important;
+    filter: drop-shadow(0 0 10px currentColor) !important;
+}
+
+.rank-text {
+    font-size: 28px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+}
+
+/* Цветовые схемы для рангов */
+.rank-display.god {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 234, 0, 0.1)) !important;
+    border-color: #ffd700 !important;
+    color: #ffd700 !important;
+    box-shadow:
+            0 0 30px rgba(255, 215, 0, 0.3),
+            inset 0 0 20px rgba(255, 215, 0, 0.1) !important;
+}
+
+.rank-display.legend {
+    background: linear-gradient(135deg, rgba(255, 0, 128, 0.1), rgba(255, 0, 255, 0.1)) !important;
+    border-color: #ff0080 !important;
+    color: #ff0080 !important;
+    box-shadow:
+            0 0 30px rgba(255, 0, 128, 0.3),
+            inset 0 0 20px rgba(255, 0, 128, 0.1) !important;
+}
+
+.rank-display.master {
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(0, 204, 255, 0.1)) !important;
+    border-color: #00ccff !important;
+    color: #00ccff !important;
+    box-shadow:
+            0 0 30px rgba(0, 204, 255, 0.3),
+            inset 0 0 20px rgba(0, 204, 255, 0.1) !important;
+}
+
+.rank-display.normal {
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 100, 0.1)) !important;
+    border-color: #00ff88 !important;
+    color: #00ff88 !important;
+    box-shadow:
+            0 0 30px rgba(0, 255, 136, 0.3),
+            inset 0 0 20px rgba(0, 255, 136, 0.1) !important;
+}
+
+.rank-display.novice {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.1)) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.rank-display.shame {
+    background: linear-gradient(135deg, rgba(255, 71, 87, 0.1), rgba(255, 100, 100, 0.1)) !important;
+    border-color: #ff4757 !important;
+    color: #ff4757 !important;
+    box-shadow:
+            0 0 30px rgba(255, 71, 87, 0.3),
+            inset 0 0 20px rgba(255, 71, 87, 0.1) !important;
+}
+
+/* Статистика результатов */
+.results-stats {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    margin-bottom: 30px !important;
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.stat-row {
+    display: flex !important;
+    gap: 20px !important;
+    justify-content: center !important;
+}
+
+.stat-box {
+    flex: 1 !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 16px !important;
+    padding: 20px !important;
+    text-align: center !important;
+    transition: all 0.3s ease !important;
+}
+
+.stat-box:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+}
+
+.stat-box.full-width {
+    flex: 1 1 100% !important;
+}
+
+.stat-box .stat-label {
+    display: block !important;
+    font-size: 14px !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    margin-bottom: 8px !important;
+}
+
+.stat-box .stat-value {
+    font-size: 32px !important;
+    font-weight: 700 !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.stat-value.highlight {
+    color: #00ff88 !important;
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.5) !important;
+}
+
+.stat-value.success {
+    color: #00ff88 !important;
+}
+
+.stat-value.error {
+    color: #ff4757 !important;
+}
+
+/* График */
+.chart-container {
+    height: 250px !important;
+    margin-bottom: 30px !important;
+    background: rgba(0, 0, 0, 0.3) !important;
+    border-radius: 16px !important;
+    padding: 20px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+/* Сообщение результатов */
+.results-message {
+    text-align: center !important;
+    margin-bottom: 30px !important;
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.message-text {
+    font-size: 18px !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    line-height: 1.6 !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Кнопки действий */
+.results-actions {
+    display: flex !important;
+    gap: 16px !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.action-btn {
+    padding: 16px 32px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 12px !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    cursor: pointer !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.action-btn::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent) !important;
+    transition: left 0.5s ease !important;
+}
+
+.action-btn:hover::before {
+    left: 100% !important;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+}
+
+.play-again {
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 136, 0.2)) !important;
+    border-color: rgba(0, 255, 136, 0.5) !important;
+    color: #00ff88 !important;
+}
+
+.play-again:hover {
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 255, 136, 0.3)) !important;
+    border-color: #00ff88 !important;
+    box-shadow:
+            0 8px 24px rgba(0, 0, 0, 0.3),
+            0 0 30px rgba(0, 255, 136, 0.3) !important;
+}
+
+.share-results {
+    background: linear-gradient(135deg, rgba(0, 204, 255, 0.1), rgba(0, 204, 255, 0.2)) !important;
+    border-color: rgba(0, 204, 255, 0.5) !important;
+    color: #00ccff !important;
+}
+
+.share-results:hover {
+    background: linear-gradient(135deg, rgba(0, 204, 255, 0.2), rgba(0, 204, 255, 0.3)) !important;
+    border-color: #00ccff !important;
+    box-shadow:
+            0 8px 24px rgba(0, 0, 0, 0.3),
+            0 0 30px rgba(0, 204, 255, 0.3) !important;
+}
+
+/* ========================================
+   АДАПТИВНОСТЬ
+======================================== */
+
+@media (max-width: 768px) {
+    .aim400kg-modal-container {
+        width: 95vw !important;
+        padding: 20px !important;
+    }
+
+    .title-main {
+        font-size: 24px !important;
+    }
+
+    .difficulty-options {
+        flex-direction: column !important;
+    }
+
+    .difficulty-option {
+        width: 100% !important;
+    }
+
+    .game-stats {
+        flex-wrap: wrap !important;
+        gap: 15px !important;
+        padding: 12px 20px !important;
+    }
+
+    .stat-item {
+        min-width: 60px !important;
+    }
+
+    .results-container {
+        padding: 24px !important;
+    }
+
+    .results-title {
+        font-size: 24px !important;
+    }
+
+    .rank-display {
+        padding: 16px 24px !important;
+    }
+
+    .rank-icon {
+        font-size: 36px !important;
+    }
+
+    .rank-text {
+        font-size: 20px !important;
+    }
+
+    .stat-row {
+        flex-direction: column !important;
+    }
+
+    .stat-box .stat-value {
+        font-size: 24px !important;
+    }
+
+    .results-actions {
+        flex-direction: column !important;
+    }
+
+    .action-btn {
+        width: 100% !important;
+    }
+
+letter-spacing: 2px !important;
+animation: gradientShift 3s ease-in-out infinite !important;
+}
+
+.title-sub {
+    font-size: 14px !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 4px !important;
+    font-weight: 300 !important;
+}
+
+.close-aim400kg {
+    width: 40px !important;
+    height: 40px !important;
+    background: rgba(255, 71, 87, 0.1) !important;
+    border: 2px solid rgba(255, 71, 87, 0.3) !important;
+    border-radius: 12px !important;
+    color: #ff4757 !important;
+    font-size: 24px !important;
+    cursor: pointer !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.close-aim400kg:hover {
+    background: rgba(255, 71, 87, 0.2) !important;
+    border-color: #ff4757 !important;
+    transform: scale(1.05) rotate(90deg) !important;
+    box-shadow: 0 0 20px rgba(255, 71, 87, 0.4) !important;
+}
+
+.aim400kg-content {
+    padding: 30px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 30px !important;
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+/* Секция сложности */
+.difficulty-section h3,
+.targets-section h3 {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    margin: 0 0 16px 0 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+}
+
+.difficulty-options {
+    display: flex !important;
+    gap: 16px !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+}
+
+.difficulty-option {
+    flex: 1 !important;
+    min-width: 160px !important;
+    cursor: pointer !important;
+}
+
+.difficulty-option input {
+    display: none !important;
+}
+
+.option-card {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    padding: 20px !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 2px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 16px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    text-align: center !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.option-card::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent) !important;
+    transition: left 0.5s ease !important;
+}
+
+.option-card:hover::before {
+    left: 100% !important;
+}
+
+.option-card:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+}
+
+.difficulty-option input:checked + .option-card {
+    background: rgba(0, 255, 136, 0.1) !important;
+    border-color: rgba(0, 255, 136, 0.5) !important;
+    box-shadow:
+            0 0 20px rgba(0, 255, 136, 0.3),
+            inset 0 0 20px rgba(0, 255, 136, 0.1) !important;
+}
+
+/* Специальные стили для карточек сложности */
+.easy-card.option-card {
+    border-color: rgba(0, 255, 136, 0.3) !important;
+}
+
+.medium-card.option-card {
+    border-color: rgba(0, 204, 255, 0.3) !important;
+}
+
+.hardcore-card.option-card {
+    border-color: rgba(255, 71, 87, 0.3) !important;
+}
+
+.difficulty-option input:checked + .easy-card {
+    background: rgba(0, 255, 136, 0.15) !important;
+    border-color: #00ff88 !important;
+}
+
+.difficulty-option input:checked + .medium-card {
+    background: rgba(0, 204, 255, 0.15) !important;
+    border-color: #00ccff !important;
+}
+
+.difficulty-option input:checked + .hardcore-card {
+    background: rgba(255, 71, 87, 0.15) !important;
+    border-color: #ff4757 !important;
+}
+
+.option-title {
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    color: rgba(255, 255, 255, 0.95) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+}
+
+.option-desc {
+    font-size: 13px !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+    line-height: 1.4 !important;
+}
+
+.option-stats {
+    display: flex !important;
+    gap: 12px !important;
+    justify-content: center !important;
+    margin-top: 8px !important;
+    flex-wrap: wrap !important;
+}
+
+.option-stats span {
+    font-size: 11px !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    padding: 4px 8px !important;
+    border-radius: 6px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Слайдер количества целей */
+.targets-slider {
+    display: flex !important;
+    align-items: center !important;
+    gap: 20px !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    padding: 20px !important;
+    border-radius: 16px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+#targetsRange {
+    flex: 1 !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    height: 6px !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 3px !important;
+    outline: none !important;
+    position: relative !important;
+}
+
+#targetsRange::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    width: 20px !important;
+    height: 20px !important;
+    background: #00ff88 !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+    box-shadow:
+            0 0 10px rgba(0, 255, 136, 0.5),
+            0 0 20px rgba(0, 255, 136, 0.3) !important;
+    transition: all 0.2s ease !important;
+}
+
+#targetsRange::-webkit-slider-thumb:hover {
+    transform: scale(1.2) !important;
+    box-shadow:
+            0 0 15px rgba(0, 255, 136, 0.7),
+            0 0 30px rgba(0, 255, 136, 0.4) !important;
+}
+
+.slider-value {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    min-width: 60px !important;
+}
+
+#targetsValue {
+    font-size: 28px !important;
+    font-weight: 700 !important;
+    color: #00ff88 !important;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5) !important;
+}
+
+.slider-label {
+    font-size: 12px !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+    text-transform: uppercase !important;
+}
+
+/* Кнопка старта */
+.start-section {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 12px !important;
+}
+
+.start-game-btn {
+    position: relative !important;
+    padding: 18px 48px !important;
+    background: linear-gradient(45deg, #00ff88, #00ccff) !important;
+    border: none !important;
+    border-radius: 16px !important;
+    cursor: pointer !important;
+    overflow: hidden !important;
+    transform: translateZ(0) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.start-game-btn::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: linear-gradient(45deg, #00ff88, #00ccff, #8844ff) !important;
+    background-size: 200% 200% !important;
+    opacity: 0 !important;
+    transition: opacity 0.3s ease !important;
+    animation: gradientShift 3s ease-in-out infinite !important;
+}
+
+.start-game-btn:hover::before {
+    opacity: 1 !important;
+}
+
+.start-game-btn:hover {
+    transform: translateY(-2px) scale(1.05) !important;
+    box-shadow:
+            0 10px 30px rgba(0, 255, 136, 0.4),
+            0 0 60px rgba(0, 255, 136, 0.2) !important;
+}
+
+.btn-text {
+    position: relative !important;
+    z-index: 2 !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: #000 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+}
+
+.btn-glow {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 200% !important;
+    height: 200% !important;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%) !important;
+    opacity: 0 !important;
+    transition: opacity 0.3s ease !important;
+}
+
+.start-game-btn:hover .btn-glow {
+    opacity: 1 !important;
+}
+
+.hint-text {
+    font-size: 13px !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    margin: 0 !important;
+}
+
+/* ========================================
+   ИГРОВОЙ ИНТЕРФЕЙС
+======================================== */
+
+.aim400kg-game {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    overflow: hidden !important;
+    cursor: crosshair !important;
+    z-index: 9999 !important;
+}
+
+#gameCanvas {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 1 !important;
+}
+
+.game-ui {
+    position: relative !important;
+    z-index: 10 !important;
+    pointer-events: none !important;
+}
+
+.game-stats {
+    position: fixed !important;
+    top: 20px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    display: flex !important;
+    gap: 30px !important;
+    background: rgba(0, 0, 0, 0.8) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    padding: 16px 32px !important;
+    border-radius: 20px !important;
+    border: 2px solid rgba(0, 255, 136, 0.3) !important;
+    box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+.stat-item {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 4px !important;
+}
+
+.stat-label {
+    font-size: 12px !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+    text-transform: uppercase !important
+}
+
+#gameCanvas {
+    pointer-events: none !important;
+}

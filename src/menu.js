@@ -207,7 +207,14 @@ export default class ContextMenu extends Menu {
     document.removeEventListener('keydown', this.handleEscapeKey);
 
     // ДОБАВИЛИ: Убираем классы принудительного позиционирования
-    this.el.classList.remove('open', 'glow', 'gradient-changing', 'force-center', 'force-bottom', 'force-top');
+    this.el.classList.remove(
+      'open',
+      'glow',
+      'gradient-changing',
+      'force-center',
+      'force-bottom',
+      'force-top'
+    );
     this.visible = false;
   }
 

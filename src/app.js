@@ -2,15 +2,17 @@
 
 import './styles.css';
 import ContextMenu from './menu';
-import CountdownTimer from './modules/countdownTimer.js';
+import CountdownTimer from './modules/countdownTimer';
 import BackgroundModule from './modules/background.module';
-import { RandomFigure } from './modules/random-figure.js';
-import CustomMessage from './modules/customMessage.js'; // НОВЫЙ ИМПОРТ
+import { RandomFigure } from './modules/random-figure';
+import CustomMessage from './modules/customMessage'; // НОВЫЙ ИМПОРТ
+import Aim400kgModule from './modules/aim400kg.module';
 
 function application() {
   return () => {
     const menu = new ContextMenu('.menu');
     const timer = new CountdownTimer();
+    const aim400kg = new Aim400kgModule();
 
     menu.add({
       type: 'Таймер',
@@ -30,6 +32,8 @@ function application() {
         bg.trigger();
       },
     });
+
+    menu.add(aim400kg);
 
     // ДОБАВЛЯЕМ НОВЫЙ МОДУЛЬ СООБЩЕНИЙ
     const customMessage = new CustomMessage();
