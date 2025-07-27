@@ -7,17 +7,26 @@ import BackgroundModule from './modules/background.module';
 import { RandomFigure } from './modules/random-figure';
 import CustomMessage from './modules/customMessage'; // НОВЫЙ ИМПОРТ
 import Aim400kgModule from './modules/aim400kg.module';
+import RandomSoundPlayer from './modules/random.sound.player.js';
 
 function application() {
   return () => {
     const menu = new ContextMenu('.menu');
     const timer = new CountdownTimer();
     const aim400kg = new Aim400kgModule();
+    const soundPlayer = new RandomSoundPlayer();
 
     menu.add({
       type: 'Таймер',
       trigger() {
         timer.trigger();
+      },
+    });
+
+    menu.add({
+      type: 'Random Sound',
+      trigger() {
+        soundPlayer.trigger();
       },
     });
 
