@@ -2,6 +2,7 @@ import './styles.css';
 import ContextMenu from './menu';
 import CountdownTimer from './modules/countdownTimer.js';
 import BackgroundModule from './modules/background.module';
+import { RandomFigure } from './modules/random-figure.js';
 
 function application() {
   return () => {
@@ -15,12 +16,7 @@ function application() {
       },
     });
 
-    menu.add({
-      type: 'Alert',
-      trigger() {
-        alert('Alert from context menu!');
-      },
-    });
+    menu.add(new RandomFigure());
 
     const bg = new BackgroundModule();
 
@@ -40,6 +36,9 @@ function application() {
   };
 }
 
+
 document.addEventListener('DOMContentLoaded', () => {
   application()();
 });
+
+
