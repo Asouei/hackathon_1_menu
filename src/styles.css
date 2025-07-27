@@ -1613,3 +1613,806 @@ body.gradient-applied {
         justify-content: flex-end !important;
     }
 }
+
+/* ========================================
+   МОДУЛЬ ПОЛЬЗОВАТЕЛЬСКИХ СООБЩЕНИЙ
+======================================== */
+
+/* Модалка для ввода сообщения */
+.message-input-modal {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(0, 0, 0, 0.6) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    z-index: 10000 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    opacity: 0 !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    pointer-events: none !important;
+}
+
+.message-input-modal.visible {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+.message-input-modal.hiding {
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Контейнер модалки */
+.message-input-container {
+    width: 500px !important;
+    max-width: 90vw !important;
+    background: var(--glass-bg) !important;
+    backdrop-filter: var(--glass-blur) !important;
+    -webkit-backdrop-filter: var(--glass-blur) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 24px !important;
+    box-shadow:
+            0 20px 40px rgba(0, 0, 0, 0.3),
+            0 8px 16px rgba(0, 0, 0, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+    overflow: hidden !important;
+    transform: scale(0.9) translateY(20px) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.message-input-modal.visible .message-input-container {
+    transform: scale(1) translateY(0) !important;
+}
+
+/* Шапка модалки */
+.message-input-header {
+    display: flex !important;
+    justify-content: flex-end;
+    align-items: center !important;
+    padding: 20px 24px 0 24px !important;
+    background: none !important;
+    border: none !important;
+}
+
+.message-input-header .drag-handle {
+    cursor: grab !important;
+    color: var(--text-color) !important;
+    font-size: 18px !important;
+    user-select: none !important;
+    padding: 8px 12px !important;
+    border-radius: 8px !important;
+    transition: all 0.2s ease !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    letter-spacing: 2px !important;
+}
+
+.message-input-header .drag-handle:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: var(--text-hover) !important;
+    transform: translateY(-1px) !important;
+}
+
+.message-input-header .drag-handle:active {
+    cursor: grabbing !important;
+}
+
+.message-input-header .close-message-input {
+    width: 36px !important;
+    height: 36px !important;
+    background: rgba(255, 71, 87, 0.1) !important;
+    border: 1px solid rgba(255, 71, 87, 0.3) !important;
+    border-radius: 10px !important;
+    color: #ff4757 !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.2s ease !important;
+    backdrop-filter: blur(8px) !important;
+}
+
+.message-input-header .close-message-input:hover {
+    background: rgba(255, 71, 87, 0.2) !important;
+    border-color: #ff4757 !important;
+    transform: scale(1.05) !important;
+    box-shadow: 0 0 20px rgba(255, 71, 87, 0.3) !important;
+}
+
+/* Содержимое модалки */
+.message-input-content {
+    padding: 24px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+}
+
+.message-input-content h3 {
+    color: var(--text-hover) !important;
+    font-size: 20px !important;
+    font-weight: 500 !important;
+    margin: 0 !important;
+    text-align: center !important;
+    text-shadow: var(--text-shadow) !important;
+}
+
+/* Textarea для ввода с счетчиком */
+.textarea-container {
+    position: relative !important;
+    width: 100% !important;
+}
+
+.message-textarea {
+    width: 100% !important;
+    min-height: 120px !important;
+    padding: 16px 20px 40px 20px !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 16px !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(8px) !important;
+    color: var(--text-hover) !important;
+    font-size: 16px !important;
+    font-family: 'Roboto', sans-serif !important;
+    line-height: 1.5 !important;
+    resize: vertical !important;
+    outline: none !important;
+    transition: all 0.3s ease !important;
+    box-sizing: border-box !important;
+}
+
+.message-textarea:focus {
+    border-color: var(--glow-primary) !important;
+    box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.2) !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+}
+
+.message-textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Счетчик символов */
+.character-counter {
+    position: absolute !important;
+    bottom: 12px !important;
+    right: 16px !important;
+    font-size: 12px !important;
+    color: var(--text-color) !important;
+    font-weight: 500 !important;
+    background: rgba(0, 0, 0, 0.3) !important;
+    padding: 4px 8px !important;
+    border-radius: 6px !important;
+    backdrop-filter: blur(4px) !important;
+    transition: color 0.2s ease !important;
+}
+
+/* Опции стилей */
+.message-style-options {
+    display: flex !important;
+    gap: 16px !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+}
+
+.message-style-options label {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    color: var(--text-color) !important;
+    font-size: 14px !important;
+    cursor: pointer !important;
+    padding: 10px 16px !important;
+    border-radius: 12px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    transition: all 0.2s ease !important;
+    user-select: none !important;
+}
+
+.message-style-options label:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: var(--text-hover) !important;
+    transform: translateY(-1px) !important;
+}
+
+.message-style-options input[type="radio"] {
+    accent-color: var(--glow-primary) !important;
+    margin: 0 !important;
+}
+
+.message-style-options label:has(input:checked) {
+    background: rgba(0, 255, 136, 0.2) !important;
+    border-color: var(--glow-primary) !important;
+    color: var(--text-hover) !important;
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.2) !important;
+}
+
+/* Кнопки управления */
+.message-input-controls {
+    display: flex !important;
+    gap: 12px !important;
+    justify-content: center !important;
+}
+
+.message-input-controls button {
+    padding: 14px 24px !important;
+    border-radius: 14px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    font-family: 'Roboto', sans-serif !important;
+    cursor: pointer !important;
+    border: 1px solid var(--glass-border) !important;
+    backdrop-filter: blur(8px) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    min-width: 100px !important;
+}
+
+.message-input-controls .cancel-message {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: var(--text-color) !important;
+}
+
+.message-input-controls .cancel-message:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: var(--text-hover) !important;
+    transform: translateY(-2px) !important;
+}
+
+.message-input-controls .show-message {
+    background: rgba(0, 255, 136, 0.2) !important;
+    border-color: var(--glow-primary) !important;
+    color: var(--text-hover) !important;
+}
+
+.message-input-controls .show-message:hover {
+    background: rgba(0, 255, 136, 0.3) !important;
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.3) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Кнопка в режиме аниме */
+.message-input-controls .show-message.anime-mode {
+    background: linear-gradient(45deg, var(--glow-secondary), var(--glow-tertiary)) !important;
+    border-color: var(--glow-secondary) !important;
+    animation: animeButtonGlow 2s ease-in-out infinite !important;
+}
+
+.message-input-controls .show-message.anime-mode:hover {
+    box-shadow: 0 0 25px rgba(136, 68, 255, 0.4) !important;
+    transform: translateY(-2px) scale(1.02) !important;
+}
+
+.message-input-controls .show-message.loading {
+    background: rgba(136, 68, 255, 0.3) !important;
+    cursor: not-allowed !important;
+    opacity: 0.7 !important;
+}
+
+/* Эффект волны при клике */
+.message-input-controls button::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent) !important;
+    transition: left 0.5s ease !important;
+}
+
+.message-input-controls button:hover::before {
+    left: 100% !important;
+}
+
+/* ========================================
+   ОТОБРАЖЕНИЕ СООБЩЕНИЯ
+======================================== */
+
+/* Основной контейнер отображения сообщения */
+.custom-message-display {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) scale(0.8) !important;
+    z-index: 9999 !important;
+    max-width: 90vw !important;
+    max-height: 85vh !important;
+    min-height: auto !important; /* Добавлено для автовысоты */
+    padding: 50px 40px 30px 40px !important;
+    background: var(--glass-bg) !important;
+    backdrop-filter: var(--glass-blur) !important;
+    -webkit-backdrop-filter: var(--glass-blur) !important;
+    border: 2px solid var(--glass-border) !important;
+    border-radius: 24px !important;
+    box-shadow:
+            0 20px 60px rgba(0, 0, 0, 0.4),
+            0 8px 24px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1),
+            0 0 100px rgba(0, 255, 136, 0.1) !important;
+    text-align: center !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: visible !important; /* Изменено для многострочности */
+    word-wrap: break-word !important;
+    white-space: pre-wrap !important; /* Добавлено для переносов строк */
+}
+
+.custom-message-display.visible {
+    opacity: 1 !important;
+    transform: translate(-50%, -50%) scale(1) !important;
+    pointer-events: auto !important;
+}
+
+.custom-message-display.hiding {
+    opacity: 0 !important;
+    transform: translate(-50%, -50%) scale(0.8) !important;
+    pointer-events: none !important;
+}
+
+/* Кнопка закрытия сообщения */
+.close-message-display {
+    position: absolute !important;
+    top: 12px !important;
+    right: 12px !important;
+    width: 36px !important;
+    height: 36px !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 10px !important;
+    color: var(--text-color) !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.2s ease !important;
+    backdrop-filter: blur(8px) !important;
+    z-index: 100 !important;
+    flex-shrink: 0 !important;
+}
+
+.close-message-display:hover {
+    background: rgba(255, 71, 87, 0.2) !important;
+    border-color: #ff4757 !important;
+    color: #ff4757 !important;
+    transform: scale(1.1) !important;
+    box-shadow: 0 0 20px rgba(255, 71, 87, 0.2) !important;
+}
+
+/* ========================================
+   СТИЛИ ДЛЯ РАЗНЫХ ТИПОВ СООБЩЕНИЙ
+======================================== */
+
+/* Большой заголовок H1 - ГЕРОИЧЕСКИЙ СТИЛЬ */
+.custom-message-display.h1 {
+    margin-top: 200px !important;
+    background: linear-gradient(135deg,
+    rgba(0, 255, 136, 0.1),
+    rgba(136, 68, 255, 0.1),
+    rgba(255, 20, 147, 0.1)) !important;
+    border: 3px solid transparent !important;
+    background-clip: padding-box !important;
+    position: relative !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.custom-message-display.h1::before {
+    content: '' !important;
+    position: absolute !important;
+    inset: -3px !important;
+    background: linear-gradient(45deg,
+    var(--glow-primary),
+    var(--glow-secondary),
+    var(--glow-tertiary),
+    #ff1493) !important;
+    background-size: 400% 400% !important;
+    z-index: -1 !important;
+    border-radius: inherit !important;
+    animation: heroGradientShift 3s ease-in-out infinite !important;
+}
+
+.custom-message-display.h1 .message-text {
+    font-size: clamp(1.8rem, 4vw, 3rem) !important;
+    font-weight: 700 !important;
+    line-height: 1.3 !important; /* Изменено для многострочности */
+    margin: 0 !important;
+    background: linear-gradient(45deg, var(--glow-primary), var(--glow-tertiary), var(--glow-secondary)) !important;
+    background-size: 200% 200% !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    animation: gradientShift 3s ease-in-out infinite !important;
+    text-shadow: none !important;
+    filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.3)) !important;
+    word-wrap: break-word !important;
+    hyphens: auto !important;
+    max-width: 100% !important;
+    white-space: pre-wrap !important;
+    text-align: center !important;
+}
+
+/* Средний заголовок H2 - ЭЛЕГАНТНЫЙ СТИЛЬ */
+.custom-message-display.h2 {
+    background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(0, 204, 255, 0.05),
+    rgba(255, 255, 255, 0.08)) !important;
+    border: 2px solid rgba(0, 204, 255, 0.3) !important;
+    box-shadow:
+            0 20px 60px rgba(0, 0, 0, 0.4),
+            0 8px 24px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2),
+            0 0 80px rgba(0, 204, 255, 0.2),
+            inset 0 0 20px rgba(0, 204, 255, 0.1) !important;
+}
+
+.custom-message-display.h2 .message-text {
+    font-size: clamp(1.4rem, 3vw, 2.2rem) !important;
+    font-weight: 500 !important;
+    line-height: 1.4 !important; /* Изменено для многострочности */
+    margin: 0 !important;
+    color: rgba(255, 255, 255, 0.95) !important;
+    text-shadow:
+            0 0 25px rgba(0, 204, 255, 0.6),
+            0 0 50px rgba(0, 204, 255, 0.3),
+            0 2px 4px rgba(0, 0, 0, 0.3) !important;
+    word-wrap: break-word !important;
+    hyphens: auto !important;
+    max-width: 100% !important;
+    white-space: pre-wrap !important;
+    text-align: center !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
+/* ========================================
+   АНИМЕ ЦИТАТА - GLASSMORPHISM СТИЛЬ
+======================================== */
+.custom-message-display.anime {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) scale(1) !important;
+    z-index: 9999 !important;
+
+    max-width: 85vw !important;
+    max-height: 80vh !important;
+    min-height: 400px !important;
+    padding: 0 !important;
+
+    /* Glassmorphism эффект */
+    background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.05)) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 24px !important;
+
+    box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.3),
+            0 4px 16px rgba(0, 0, 0, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3),
+            0 0 60px rgba(136, 68, 255, 0.1) !important;
+
+    cursor: pointer !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    overflow: hidden !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Hover эффект для аниме цитат */
+.custom-message-display.anime:hover {
+    transform: translate(-50%, -50%) scale(1.02) !important;
+    box-shadow:
+            0 12px 48px rgba(0, 0, 0, 0.4),
+            0 6px 24px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.4),
+            0 0 80px rgba(136, 68, 255, 0.2),
+            0 0 120px rgba(255, 20, 147, 0.1) !important;
+}
+
+/* Фон с персонажем - УЛУЧШЕННЫЙ */
+.character-background {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    opacity: 0.6 !important; /* Увеличена видимость */
+    filter: blur(1px) brightness(1.1) contrast(1.1) !important; /* Улучшены фильтры */
+    z-index: 1 !important;
+    border-radius: inherit !important;
+    pointer-events: none !important;
+    transition: all 0.3s ease !important;
+}
+
+.custom-message-display.anime:hover .character-background {
+    opacity: 0.7 !important;
+    filter: blur(0.5px) brightness(1.2) contrast(1.2) !important;
+}
+
+/* Контейнер цитаты */
+.custom-message-display.anime .anime-quote-container {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 2 !important;
+    padding: 40px !important;
+    user-select: none !important;
+    cursor: pointer !important;
+}
+
+/* Контент цитаты - GLASSMORPHISM */
+.custom-message-display.anime .anime-quote-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 20px !important;
+    text-align: center !important;
+    max-width: 90% !important;
+    position: relative !important;
+    z-index: 3 !important;
+
+    /* Glassmorphism для контента */
+    background: linear-gradient(135deg,
+    rgba(0, 0, 0, 0.4),
+    rgba(0, 0, 0, 0.2)) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+
+    padding: 35px 40px !important;
+    border-radius: 20px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+
+    box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.2),
+            0 4px 16px rgba(0, 0, 0, 0.3) !important;
+
+    transition: all 0.3s ease !important;
+}
+
+.custom-message-display.anime:hover .anime-quote-content {
+    background: linear-gradient(135deg,
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.3)) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Кавычки */
+.custom-message-display.anime .anime-quote-mark {
+    font-size: clamp(2.5rem, 5vw, 3.5rem) !important;
+    font-weight: 900 !important;
+    color: rgba(136, 68, 255, 0.9) !important;
+    line-height: 0.8 !important;
+    font-family: Georgia, serif !important;
+    text-shadow:
+            0 0 20px rgba(136, 68, 255, 0.6),
+            0 0 40px rgba(136, 68, 255, 0.3) !important;
+    animation: animeQuoteGlow 3s ease-in-out infinite !important;
+    margin: 0 !important;
+    filter: drop-shadow(0 0 10px rgba(136, 68, 255, 0.5)) !important;
+}
+
+.custom-message-display.anime .anime-quote-mark.closing {
+    transform: rotate(180deg) !important;
+    margin-top: -10px !important;
+}
+
+/* Текст цитаты */
+.custom-message-display.anime .message-text {
+    font-size: clamp(1.1rem, 2.5vw, 1.8rem) !important;
+    font-weight: 400 !important;
+    line-height: 1.7 !important;
+    margin: 0 !important;
+    color: rgba(255, 255, 255, 0.95) !important;
+    text-shadow:
+            0 0 15px rgba(255, 255, 255, 0.4),
+            0 2px 4px rgba(0, 0, 0, 0.3) !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    max-width: 100% !important;
+    position: relative !important;
+    z-index: 3 !important;
+    word-wrap: break-word !important;
+    hyphens: auto !important;
+    white-space: pre-wrap !important;
+}
+
+/* Автор цитаты */
+.custom-message-display.anime .anime-author {
+    font-size: clamp(0.9rem, 1.8vw, 1.2rem) !important;
+    font-weight: 500 !important;
+    color: rgba(0, 204, 255, 0.9) !important;
+    text-shadow:
+            0 0 15px rgba(0, 204, 255, 0.5),
+            0 2px 4px rgba(0, 0, 0, 0.3) !important;
+    font-style: italic !important;
+    margin-top: 8px !important;
+    opacity: 0.9 !important;
+    letter-spacing: 0.5px !important;
+    z-index: 3 !important;
+    position: relative !important;
+}
+
+/* ========================================
+   АНИМАЦИИ
+======================================== */
+@keyframes heroGradientShift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes gradientShift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes animeQuoteGlow {
+    0%, 100% {
+        text-shadow:
+                0 0 20px rgba(136, 68, 255, 0.6),
+                0 0 40px rgba(136, 68, 255, 0.3);
+        transform: scale(1);
+    }
+    50% {
+        text-shadow:
+                0 0 30px rgba(136, 68, 255, 0.8),
+                0 0 50px rgba(136, 68, 255, 0.5),
+                0 0 70px rgba(136, 68, 255, 0.2);
+        transform: scale(1.05);
+    }
+}
+
+/* Анимация для кнопки аниме */
+@keyframes animeButtonGlow {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(136, 68, 255, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(136, 68, 255, 0.4);
+    }
+}
+
+.message-text.copied-animation {
+    animation: pulseCopy 0.4s ease;
+}
+
+@keyframes pulseCopy {
+    0% { transform: scale(1); color: inherit; }
+    50% { transform: scale(1.05); color: #00ffa3; }
+    100% { transform: scale(1); color: inherit; }
+}
+
+/* ========================================
+   МОБИЛЬНАЯ АДАПТИВНОСТЬ
+======================================== */
+@media (max-width: 768px) {
+    .message-input-container {
+        width: 95vw !important;
+        margin: 20px !important;
+    }
+
+    .message-input-content {
+        padding: 20px !important;
+        gap: 16px !important;
+    }
+
+    .message-textarea {
+        min-height: 100px !important;
+        font-size: 16px !important;
+        padding: 14px 18px 36px 18px !important;
+    }
+
+    .character-counter {
+        bottom: 10px !important;
+        right: 14px !important;
+        font-size: 11px !important;
+    }
+
+    .message-style-options {
+        flex-direction: column !important;
+        gap: 8px !important;
+    }
+
+    .message-style-options label {
+        justify-content: center !important;
+    }
+
+    .message-input-controls {
+        flex-direction: column !important;
+        gap: 12px !important;
+    }
+
+    .message-input-controls button {
+        width: 100% !important;
+        padding: 16px !important;
+    }
+
+    .custom-message-display {
+        max-width: 95vw !important;
+        max-height: 90vh !important;
+        padding: 40px 20px 25px 20px !important;
+        border-radius: 20px !important;
+    }
+
+    .close-message-display {
+        top: 8px !important;
+        right: 8px !important;
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 16px !important;
+    }
+
+    .custom-message-display.h1 .message-text {
+        font-size: clamp(1.5rem, 6vw, 2.2rem) !important;
+    }
+
+    .custom-message-display.h2 .message-text {
+        font-size: clamp(1.2rem, 5vw, 1.8rem) !important;
+    }
+
+    .custom-message-display.anime {
+        max-width: 95vw !important;
+        max-height: 85vh !important;
+        min-height: 350px !important;
+    }
+
+    .custom-message-display.anime .anime-quote-container {
+        padding: 20px !important;
+    }
+
+    .custom-message-display.anime .anime-quote-content {
+        padding: 25px 20px !important;
+        max-width: 95% !important;
+        gap: 16px !important;
+    }
+
+    .custom-message-display.anime .anime-quote-mark {
+        font-size: clamp(2rem, 8vw, 2.8rem) !important;
+    }
+
+    .custom-message-display.anime .message-text {
+        font-size: clamp(1rem, 4vw, 1.4rem) !important;
+        line-height: 1.5 !important;
+    }
+
+    .custom-message-display.anime .anime-author {
+        font-size: clamp(0.8rem, 3vw, 1rem) !important;
+    }
+}

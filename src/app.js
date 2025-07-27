@@ -1,8 +1,11 @@
+// Обновленный app.js с добавлением модуля сообщений
+
 import './styles.css';
 import ContextMenu from './menu';
 import CountdownTimer from './modules/countdownTimer.js';
 import BackgroundModule from './modules/background.module';
 import { RandomFigure } from './modules/random-figure.js';
+import CustomMessage from './modules/customMessage.js'; // НОВЫЙ ИМПОРТ
 
 function application() {
   return () => {
@@ -25,6 +28,16 @@ function application() {
       trigger() {
         console.log('[DEBUG] BackgroundModule trigger вызван вручную!');
         bg.trigger();
+      },
+    });
+
+    // ДОБАВЛЯЕМ НОВЫЙ МОДУЛЬ СООБЩЕНИЙ
+    const customMessage = new CustomMessage();
+    menu.add({
+      type: customMessage.type, // 'Сообщение'
+      trigger() {
+        console.log('[DEBUG] CustomMessage trigger вызван!');
+        customMessage.trigger();
       },
     });
 
