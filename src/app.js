@@ -3,16 +3,25 @@ import ContextMenu from './menu';
 import CountdownTimer from './modules/countdownTimer.js';
 import BackgroundModule from './modules/background.module';
 import { RandomFigure } from './modules/random-figure.js';
+import RandomSoundPlayer from './modules/random.sound.player.js';
 
 function application() {
   return () => {
     const menu = new ContextMenu('.menu');
     const timer = new CountdownTimer();
+    const soundPlayer = new RandomSoundPlayer();
 
     menu.add({
       type: 'Таймер',
       trigger() {
         timer.trigger();
+      },
+    });
+
+    menu.add({
+      type: 'Random Sound',
+      trigger() {
+        soundPlayer.trigger();
       },
     });
 

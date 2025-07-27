@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
 
 /* ========================================
    CSS ПЕРЕМЕННЫЕ И ОСНОВНЫЕ НАСТРОЙКИ
@@ -44,13 +44,8 @@
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    background: linear-gradient(135deg,
-    #0a0a1a 0%,
-    #1a0a2a 25%,
-    #0a1a2a 50%,
-    #2a0a1a 75%,
-    #0a2a0a 100%);
+    font-family: "Roboto", sans-serif;
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2a 25%, #0a1a2a 50%, #2a0a1a 75%, #0a2a0a 100%);
     background-attachment: fixed;
     min-height: 100vh;
     padding: 2rem;
@@ -61,16 +56,15 @@ body {
 
 /* Атмосферные эффекты фона */
 body::before {
-    content: '';
+    content: "";
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background:
-            radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.05) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(136, 68, 255, 0.05) 0%, transparent 50%),
-            radial-gradient(circle at 40% 40%, rgba(0, 204, 255, 0.03) 0%, transparent 50%);
+    background: radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(136, 68, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(0, 204, 255, 0.03) 0%, transparent 50%);
     pointer-events: none;
     z-index: -1;
 }
@@ -92,9 +86,9 @@ body::before {
     border: 1px solid var(--glass-border);
     overflow: hidden;
     box-shadow:
-            0 8px 32px rgba(0, 0, 0, 0.3),
-            0 2px 8px rgba(0, 0, 0, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 2px 8px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     transform: scale(0.9) translateY(-10px);
     opacity: 0;
@@ -110,8 +104,8 @@ body::before {
 
 .menu.glow {
     animation:
-            glowPulse 3s ease-in-out infinite,
-            glowRotate 8s linear infinite;
+        glowPulse 3s ease-in-out infinite,
+        glowRotate 8s linear infinite;
 }
 
 .menu.gradient-changing {
@@ -139,7 +133,7 @@ body::before {
 
 /* Эффект подсветки при наведении */
 .menu .menu-item::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: -100%;
@@ -155,7 +149,7 @@ body::before {
 }
 
 .menu .menu-item::after {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     border-radius: inherit;
@@ -188,14 +182,10 @@ body::before {
 }
 
 .menu .menu-item.background-item::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(45deg,
-    var(--glow-primary),
-    var(--glow-tertiary),
-    var(--glow-secondary)
-    );
+    background: linear-gradient(45deg, var(--glow-primary), var(--glow-tertiary), var(--glow-secondary));
     background-size: 200% 200%;
     animation: gradientShift 3s ease-in-out infinite;
     opacity: 0.3;
@@ -227,7 +217,7 @@ body::before {
     opacity: 0 !important;
     transition: opacity 0.3s ease !important;
     pointer-events: none !important;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.3) !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3) !important;
 }
 
 /* Скругления меню */
@@ -278,9 +268,9 @@ body::before {
     -webkit-backdrop-filter: blur(16px) saturate(130%);
     border: 1px solid var(--glass-border);
     box-shadow:
-            0 6px 24px rgba(0, 0, 0, 0.25),
-            0 2px 6px rgba(0, 0, 0, 0.15),
-            inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        0 6px 24px rgba(0, 0, 0, 0.25),
+        0 2px 6px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
     position: relative;
     overflow: hidden;
     transform: translateX(100%) scale(0.9);
@@ -370,12 +360,7 @@ body::before {
     bottom: 0;
     left: 0;
     height: 3px;
-    background: linear-gradient(
-            90deg,
-            var(--glow-primary) 0%,
-            var(--glow-tertiary) 50%,
-            var(--glow-secondary) 100%
-    );
+    background: linear-gradient(90deg, var(--glow-primary) 0%, var(--glow-tertiary) 50%, var(--glow-secondary) 100%);
     border-radius: 0 0 var(--toast-radius) var(--toast-radius);
     transform-origin: left;
     animation: toastProgress 2s linear forwards;
@@ -383,18 +368,13 @@ body::before {
 
 /* Эффекты наведения для тостов */
 .toast::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(255, 255, 255, 0.04),
-            transparent
-    );
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.04), transparent);
     transition: left 0.6s ease;
     z-index: 1;
 }
@@ -404,15 +384,15 @@ body::before {
 }
 
 .toast::after {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     border-radius: inherit;
     background: linear-gradient(
-            135deg,
-            rgba(255, 255, 255, 0.03) 0%,
-            rgba(255, 255, 255, 0) 50%,
-            rgba(255, 255, 255, 0.02) 100%
+        135deg,
+        rgba(255, 255, 255, 0.03) 0%,
+        rgba(255, 255, 255, 0) 50%,
+        rgba(255, 255, 255, 0.02) 100%
     );
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -458,33 +438,34 @@ body::before {
 /* Специальные тосты с градиентами */
 .toast.gradient-notification {
     border-left: 3px solid transparent;
-    background: linear-gradient(var(--glass-bg), var(--glass-bg)) padding-box,
-    linear-gradient(45deg, var(--glow-primary), var(--glow-tertiary), var(--glow-secondary)) border-box;
+    background:
+        linear-gradient(var(--glass-bg), var(--glass-bg)) padding-box,
+        linear-gradient(45deg, var(--glow-primary), var(--glow-tertiary), var(--glow-secondary)) border-box;
 }
 
 .toast.gradient-notification::before {
     background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(0, 255, 136, 0.08),
-            rgba(0, 204, 255, 0.08),
-            rgba(136, 68, 255, 0.08),
-            transparent
+        90deg,
+        transparent,
+        rgba(0, 255, 136, 0.08),
+        rgba(0, 204, 255, 0.08),
+        rgba(136, 68, 255, 0.08),
+        transparent
     );
 }
 
 .toast.gradient-notification .toast-progress {
     background: linear-gradient(
-            90deg,
-            var(--glow-primary) 0%,
-            var(--glow-tertiary) 33%,
-            var(--glow-secondary) 66%,
-            var(--glow-primary) 100%
+        90deg,
+        var(--glow-primary) 0%,
+        var(--glow-tertiary) 33%,
+        var(--glow-secondary) 66%,
+        var(--glow-primary) 100%
     );
     background-size: 200% 100%;
     animation:
-            toastProgress 3s linear forwards,
-            gradientShift 2s ease-in-out infinite;
+        toastProgress 3s linear forwards,
+        gradientShift 2s ease-in-out infinite;
 }
 
 /* Превью градиента в тосте */
@@ -520,8 +501,8 @@ body::before {
     justify-content: center;
     backdrop-filter: blur(8px);
     box-shadow:
-            0 4px 16px rgba(0, 0, 0, 0.3),
-            0 0 0 1px rgba(255, 255, 255, 0.1);
+        0 4px 16px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0;
     transform: scale(0.8) translateY(20px);
@@ -532,8 +513,8 @@ body::before {
 .color-palette:hover {
     transform: scale(1.1) !important;
     box-shadow:
-            0 6px 24px rgba(0, 0, 0, 0.4),
-            0 0 20px rgba(255, 255, 255, 0.2);
+        0 6px 24px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.5);
 }
 
@@ -557,8 +538,8 @@ body::before {
     border-radius: 6px;
     border: 1px solid rgba(255, 255, 255, 0.4);
     box-shadow:
-            0 2px 4px rgba(0, 0, 0, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        0 2px 4px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
     transition: transform 0.2s ease;
 }
 
@@ -568,7 +549,7 @@ body::before {
 }
 
 .color-code {
-    font-family: 'Courier New', monospace;
+    font-family: "Courier New", monospace;
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.5px;
@@ -606,14 +587,11 @@ body::before {
 }
 
 .color-palette-item::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: -2px;
     border-radius: calc(var(--palette-radius) + 2px);
-    background: linear-gradient(45deg,
-    rgba(0, 255, 136, 0.3),
-    rgba(0, 204, 255, 0.3),
-    rgba(136, 68, 255, 0.3));
+    background: linear-gradient(45deg, rgba(0, 255, 136, 0.3), rgba(0, 204, 255, 0.3), rgba(136, 68, 255, 0.3));
     opacity: 0;
     transition: opacity 0.3s ease;
     z-index: -1;
@@ -634,13 +612,11 @@ body::before {
 
 /* Эффект наведения курсора для всей палитры */
 .color-palette::after {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    background: linear-gradient(135deg,
-    rgba(255, 255, 255, 0.1),
-    rgba(255, 255, 255, 0.05));
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
     opacity: 0;
     transition: opacity 0.3s ease;
 }
@@ -648,6 +624,152 @@ body::before {
 .color-palette:hover::after {
     opacity: 1;
 }
+/* ========================================
+   RANDOM SOUND PLAYER МОДУЛЬ
+======================================== */
+
+.sound-modal {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 320px;
+    background: rgba(30, 30, 30, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    transform: translateX(-150%) scale(0.95);
+    opacity: 0;
+    transition:
+        transform 0.4s ease,
+        opacity 0.4s ease;
+    z-index: 9999;
+}
+
+.sound-modal.visible {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+}
+
+/* === HEADER === */
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cover {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.track-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.track-title {
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.track-artist {
+    font-size: 12px;
+    color: #ccc;
+}
+
+.close-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* === BODY === */
+.modal-body {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* === PROGRESS === */
+.progress {
+    width: 100%;
+    margin-top: 4px;
+    accent-color: #fff;
+}
+
+.time {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 12px;
+    margin-top: 4px;
+    color: #bbb;
+}
+
+/* === CONTROLS === */
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 12px;
+    gap: 24px;
+}
+
+.controls button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.controls button:hover {
+    transform: scale(1.2);
+}
+
+/* === VOLUME === */
+.volume {
+    width: 100%;
+    margin-top: 12px;
+    accent-color: #aaa;
+}
+
+.random-btn.animate {
+    animation: rotateSpin 0.4s ease-in-out;
+}
+
+@keyframes rotateSpin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 /* ========================================
    ТАЙМЕР МОДУЛЬ
 ======================================== */
@@ -666,12 +788,12 @@ body::before {
     -webkit-backdrop-filter: var(--glass-blur) !important;
     border: 1px solid var(--glass-border) !important;
     box-shadow:
-            0 8px 32px rgba(0, 0, 0, 0.3),
-            0 2px 8px rgba(0, 0, 0, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 2px 8px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
     color: var(--text-color) !important;
     z-index: 9999 !important;
-    font-family: 'Roboto', sans-serif !important;
+    font-family: "Roboto", sans-serif !important;
     display: flex !important;
     flex-direction: column !important;
     gap: 20px !important;
@@ -752,21 +874,23 @@ body::before {
     border: 2px solid var(--glass-border) !important;
     position: relative !important;
     box-shadow:
-            inset 0 0 30px rgba(0, 0, 0, 0.5),
-            0 0 20px rgba(0, 255, 136, 0.1) !important;
+        inset 0 0 30px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(0, 255, 136, 0.1) !important;
 }
 
 .timer-modal .threejs-container::before {
-    content: '' !important;
+    content: "" !important;
     position: absolute !important;
     top: 0 !important;
     left: 0 !important;
     right: 0 !important;
     bottom: 0 !important;
-    background: linear-gradient(45deg,
-    rgba(0, 255, 136, 0.1) 0%,
-    rgba(136, 68, 255, 0.1) 50%,
-    rgba(0, 204, 255, 0.1) 100%) !important;
+    background: linear-gradient(
+        45deg,
+        rgba(0, 255, 136, 0.1) 0%,
+        rgba(136, 68, 255, 0.1) 50%,
+        rgba(0, 204, 255, 0.1) 100%
+    ) !important;
     pointer-events: none !important;
     z-index: 1 !important;
 }
@@ -834,27 +958,21 @@ body::before {
 /* Прогресс окружности с эффектом горения */
 .timer-modal .circle .progress {
     stroke: var(--glow-primary) !important;
-    filter:
-            drop-shadow(0 0 8px rgba(0, 255, 136, 0.6))
-            drop-shadow(0 0 15px rgba(0, 255, 136, 0.4))
-            drop-shadow(0 0 25px rgba(0, 255, 136, 0.2)) !important;
+    filter: drop-shadow(0 0 8px rgba(0, 255, 136, 0.6)) drop-shadow(0 0 15px rgba(0, 255, 136, 0.4))
+        drop-shadow(0 0 25px rgba(0, 255, 136, 0.2)) !important;
     animation: fireGlow 2s ease-in-out infinite !important;
 }
 
 .timer-modal .circle#minutes .progress {
     stroke: var(--glow-secondary) !important;
-    filter:
-            drop-shadow(0 0 8px rgba(136, 68, 255, 0.6))
-            drop-shadow(0 0 15px rgba(136, 68, 255, 0.4))
-            drop-shadow(0 0 25px rgba(136, 68, 255, 0.2)) !important;
+    filter: drop-shadow(0 0 8px rgba(136, 68, 255, 0.6)) drop-shadow(0 0 15px rgba(136, 68, 255, 0.4))
+        drop-shadow(0 0 25px rgba(136, 68, 255, 0.2)) !important;
 }
 
 .timer-modal .circle#seconds .progress {
     stroke: var(--glow-tertiary) !important;
-    filter:
-            drop-shadow(0 0 8px rgba(0, 204, 255, 0.6))
-            drop-shadow(0 0 15px rgba(0, 204, 255, 0.4))
-            drop-shadow(0 0 25px rgba(0, 204, 255, 0.2)) !important;
+    filter: drop-shadow(0 0 8px rgba(0, 204, 255, 0.6)) drop-shadow(0 0 15px rgba(0, 204, 255, 0.4))
+        drop-shadow(0 0 25px rgba(0, 204, 255, 0.2)) !important;
 }
 
 /* Текст внутри кругов */
@@ -868,8 +986,8 @@ body::before {
     font-weight: bold !important;
     color: var(--text-hover) !important;
     text-shadow:
-            0 0 10px rgba(255, 255, 255, 0.5),
-            0 0 20px rgba(255, 255, 255, 0.3) !important;
+        0 0 10px rgba(255, 255, 255, 0.5),
+        0 0 20px rgba(255, 255, 255, 0.3) !important;
     background: none !important;
     border: none !important;
     padding: 0 !important;
@@ -907,7 +1025,7 @@ body::before {
     background: rgba(255, 255, 255, 0.08) !important;
     color: var(--text-hover) !important;
     outline: none !important;
-    font-family: 'Roboto', sans-serif !important;
+    font-family: "Roboto", sans-serif !important;
     backdrop-filter: blur(8px) !important;
     transition: all 0.3s ease !important;
 }
@@ -933,7 +1051,7 @@ body::before {
     border: 1px solid var(--glass-border) !important;
     border-radius: 14px !important;
     cursor: pointer !important;
-    font-family: 'Roboto', sans-serif !important;
+    font-family: "Roboto", sans-serif !important;
     font-weight: 600 !important;
     backdrop-filter: blur(8px) !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
@@ -942,7 +1060,7 @@ body::before {
 }
 
 .timer-modal .timer-controls button::before {
-    content: '' !important;
+    content: "" !important;
     position: absolute !important;
     top: 0 !important;
     left: -100% !important;
@@ -995,45 +1113,35 @@ body::before {
 
 /* Анимация огня/горения */
 @keyframes fireGlow {
-    0%, 100% {
-        filter:
-                drop-shadow(0 0 8px rgba(0, 255, 136, 0.6))
-                drop-shadow(0 0 15px rgba(0, 255, 136, 0.4))
-                drop-shadow(0 0 25px rgba(0, 255, 136, 0.2));
+    0%,
+    100% {
+        filter: drop-shadow(0 0 8px rgba(0, 255, 136, 0.6)) drop-shadow(0 0 15px rgba(0, 255, 136, 0.4))
+            drop-shadow(0 0 25px rgba(0, 255, 136, 0.2));
     }
     25% {
-        filter:
-                drop-shadow(2px 0 12px rgba(0, 255, 136, 0.8))
-                drop-shadow(-1px 0 20px rgba(0, 255, 136, 0.5))
-                drop-shadow(0 0 30px rgba(0, 255, 136, 0.3));
+        filter: drop-shadow(2px 0 12px rgba(0, 255, 136, 0.8)) drop-shadow(-1px 0 20px rgba(0, 255, 136, 0.5))
+            drop-shadow(0 0 30px rgba(0, 255, 136, 0.3));
     }
     50% {
-        filter:
-                drop-shadow(-2px 0 10px rgba(0, 255, 136, 0.7))
-                drop-shadow(3px 0 18px rgba(0, 255, 136, 0.6))
-                drop-shadow(0 0 35px rgba(0, 255, 136, 0.25));
+        filter: drop-shadow(-2px 0 10px rgba(0, 255, 136, 0.7)) drop-shadow(3px 0 18px rgba(0, 255, 136, 0.6))
+            drop-shadow(0 0 35px rgba(0, 255, 136, 0.25));
     }
     75% {
-        filter:
-                drop-shadow(1px 0 14px rgba(0, 255, 136, 0.9))
-                drop-shadow(-2px 0 22px rgba(0, 255, 136, 0.4))
-                drop-shadow(0 0 28px rgba(0, 255, 136, 0.2));
+        filter: drop-shadow(1px 0 14px rgba(0, 255, 136, 0.9)) drop-shadow(-2px 0 22px rgba(0, 255, 136, 0.4))
+            drop-shadow(0 0 28px rgba(0, 255, 136, 0.2));
     }
 }
 
 /* Активное горение для запущенного таймера */
 @keyframes activeFire {
-    0%, 100% {
-        filter:
-                drop-shadow(0 0 12px rgba(0, 255, 136, 0.8))
-                drop-shadow(0 0 25px rgba(0, 255, 136, 0.6))
-                drop-shadow(0 0 40px rgba(0, 255, 136, 0.4));
+    0%,
+    100% {
+        filter: drop-shadow(0 0 12px rgba(0, 255, 136, 0.8)) drop-shadow(0 0 25px rgba(0, 255, 136, 0.6))
+            drop-shadow(0 0 40px rgba(0, 255, 136, 0.4));
     }
     50% {
-        filter:
-                drop-shadow(3px 0 18px rgba(0, 255, 136, 1))
-                drop-shadow(-2px 0 30px rgba(0, 255, 136, 0.8))
-                drop-shadow(0 0 50px rgba(0, 255, 136, 0.5));
+        filter: drop-shadow(3px 0 18px rgba(0, 255, 136, 1)) drop-shadow(-2px 0 30px rgba(0, 255, 136, 0.8))
+            drop-shadow(0 0 50px rgba(0, 255, 136, 0.5));
     }
 }
 
@@ -1117,36 +1225,38 @@ body::before {
 }
 
 @keyframes palettePulse {
-    0%, 100% {
+    0%,
+    100% {
         box-shadow:
-                0 4px 16px rgba(0, 0, 0, 0.3),
-                0 0 0 1px rgba(255, 255, 255, 0.1);
+            0 4px 16px rgba(0, 0, 0, 0.3),
+            0 0 0 1px rgba(255, 255, 255, 0.1);
     }
     50% {
         box-shadow:
-                0 6px 20px rgba(0, 0, 0, 0.4),
-                0 0 0 2px rgba(255, 255, 255, 0.2),
-                0 0 20px rgba(255, 255, 255, 0.1);
+            0 6px 20px rgba(0, 0, 0, 0.4),
+            0 0 0 2px rgba(255, 255, 255, 0.2),
+            0 0 20px rgba(255, 255, 255, 0.1);
     }
 }
 
 /* Анимации свечения */
 @keyframes glowPulse {
-    0%, 100% {
+    0%,
+    100% {
         box-shadow:
-                0 0 10px rgba(0, 255, 136, 0.3),
-                0 0 20px rgba(136, 68, 255, 0.2),
-                0 0 30px rgba(0, 204, 255, 0.1),
-                0 8px 32px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            0 0 10px rgba(0, 255, 136, 0.3),
+            0 0 20px rgba(136, 68, 255, 0.2),
+            0 0 30px rgba(0, 204, 255, 0.1),
+            0 8px 32px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
     50% {
         box-shadow:
-                0 0 20px rgba(0, 255, 136, 0.4),
-                0 0 40px rgba(136, 68, 255, 0.3),
-                0 0 60px rgba(0, 204, 255, 0.2),
-                0 12px 40px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            0 0 20px rgba(0, 255, 136, 0.4),
+            0 0 40px rgba(136, 68, 255, 0.3),
+            0 0 60px rgba(0, 204, 255, 0.2),
+            0 12px 40px rgba(0, 0, 0, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
 }
 
@@ -1160,26 +1270,28 @@ body::before {
 }
 
 @keyframes gradientMenuPulse {
-    0%, 100% {
+    0%,
+    100% {
         box-shadow:
-                0 0 10px rgba(0, 255, 136, 0.2),
-                0 0 20px rgba(136, 68, 255, 0.15),
-                0 0 30px rgba(0, 204, 255, 0.1),
-                0 8px 32px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            0 0 10px rgba(0, 255, 136, 0.2),
+            0 0 20px rgba(136, 68, 255, 0.15),
+            0 0 30px rgba(0, 204, 255, 0.1),
+            0 8px 32px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
     50% {
         box-shadow:
-                0 0 20px rgba(0, 255, 136, 0.4),
-                0 0 40px rgba(136, 68, 255, 0.3),
-                0 0 60px rgba(0, 204, 255, 0.2),
-                0 12px 40px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            0 0 20px rgba(0, 255, 136, 0.4),
+            0 0 40px rgba(136, 68, 255, 0.3),
+            0 0 60px rgba(0, 204, 255, 0.2),
+            0 12px 40px rgba(0, 0, 0, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.15);
     }
 }
 
 @keyframes gradientShift {
-    0%, 100% {
+    0%,
+    100% {
         background-position: 0% 50%;
     }
     50% {
@@ -1188,15 +1300,16 @@ body::before {
 }
 
 @keyframes gradientPreviewPulse {
-    0%, 100% {
+    0%,
+    100% {
         box-shadow:
-                0 2px 8px rgba(0, 0, 0, 0.3),
-                0 0 0 0 rgba(255, 255, 255, 0.2);
+            0 2px 8px rgba(0, 0, 0, 0.3),
+            0 0 0 0 rgba(255, 255, 255, 0.2);
     }
     50% {
         box-shadow:
-                0 4px 12px rgba(0, 0, 0, 0.4),
-                0 0 0 2px rgba(255, 255, 255, 0.3);
+            0 4px 12px rgba(0, 0, 0, 0.4),
+            0 0 0 2px rgba(255, 255, 255, 0.3);
     }
 }
 
@@ -1220,16 +1333,36 @@ body.gradient-applied {
 /* ========================================
    ЗАДЕРЖКИ АНИМАЦИЙ ДЛЯ ПУНКТОВ МЕНЮ
 ======================================== */
-.menu .menu-item:nth-child(1) { animation-delay: calc(var(--item-delay) * 0); }
-.menu .menu-item:nth-child(2) { animation-delay: calc(var(--item-delay) * 1); }
-.menu .menu-item:nth-child(3) { animation-delay: calc(var(--item-delay) * 2); }
-.menu .menu-item:nth-child(4) { animation-delay: calc(var(--item-delay) * 3); }
-.menu .menu-item:nth-child(5) { animation-delay: calc(var(--item-delay) * 4); }
-.menu .menu-item:nth-child(6) { animation-delay: calc(var(--item-delay) * 5); }
-.menu .menu-item:nth-child(7) { animation-delay: calc(var(--item-delay) * 6); }
-.menu .menu-item:nth-child(8) { animation-delay: calc(var(--item-delay) * 7); }
-.menu .menu-item:nth-child(9) { animation-delay: calc(var(--item-delay) * 8); }
-.menu .menu-item:nth-child(10) { animation-delay: calc(var(--item-delay) * 9); }
+.menu .menu-item:nth-child(1) {
+    animation-delay: calc(var(--item-delay) * 0);
+}
+.menu .menu-item:nth-child(2) {
+    animation-delay: calc(var(--item-delay) * 1);
+}
+.menu .menu-item:nth-child(3) {
+    animation-delay: calc(var(--item-delay) * 2);
+}
+.menu .menu-item:nth-child(4) {
+    animation-delay: calc(var(--item-delay) * 3);
+}
+.menu .menu-item:nth-child(5) {
+    animation-delay: calc(var(--item-delay) * 4);
+}
+.menu .menu-item:nth-child(6) {
+    animation-delay: calc(var(--item-delay) * 5);
+}
+.menu .menu-item:nth-child(7) {
+    animation-delay: calc(var(--item-delay) * 6);
+}
+.menu .menu-item:nth-child(8) {
+    animation-delay: calc(var(--item-delay) * 7);
+}
+.menu .menu-item:nth-child(9) {
+    animation-delay: calc(var(--item-delay) * 8);
+}
+.menu .menu-item:nth-child(10) {
+    animation-delay: calc(var(--item-delay) * 9);
+}
 
 /* ========================================
    АДАПТИВНОСТЬ
@@ -1448,7 +1581,8 @@ body.gradient-applied {
 }
 
 @keyframes ultraSmoothMotion {
-    0%, 100% {
+    0%,
+    100% {
         opacity: 1;
         transform: scale(1) rotate(0deg);
         filter: drop-shadow(0 0 8px currentColor);
@@ -1538,7 +1672,8 @@ body.gradient-applied {
 }
 
 @keyframes gentleMotion {
-    0%, 100% {
+    0%,
+    100% {
         opacity: 1;
         transform: scale(1) rotate(0deg);
     }
@@ -1584,7 +1719,7 @@ body.gradient-applied {
 
     /* Затемнение фона */
     .menu.force-center.open::before {
-        content: '';
+        content: "";
         position: fixed;
         top: 0;
         left: 0;
