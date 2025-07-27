@@ -185,8 +185,8 @@ export function safeRandomPathGenerator(canvasDiv) {
 
   // Безопасная зона - отступы от краев
   const margin = 100;
-  const safeWidth = width - (margin * 2);
-  const safeHeight = height - (margin * 2);
+  const safeWidth = width - margin * 2;
+  const safeHeight = height - margin * 2;
 
   // Ограничиваем количество точек для более плавных фигур
   const numPoints = Math.floor(Math.random() * 4) + 4; // 4-7 точек

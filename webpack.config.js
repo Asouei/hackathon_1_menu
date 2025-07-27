@@ -34,9 +34,10 @@ module.exports = (env, argv) => {
       }
     },
     devServer: {
-      port: '3000',
+      port: 3000,
       open: true,
       hot: true,
+      contentBase: path.resolve(__dirname, 'public'),
     },
     devtool: isDev ? 'source-map' : false,
     plugins: [

@@ -32,7 +32,11 @@
   "license": "ISC",
   "dependencies": {
     "@svgdotjs/svg.js": "^3.2.4",
+    "canvas-confetti": "^1.9.3",
+    "chart.js": "^4.5.0",
     "core-js": "^3.15.2",
+    "gsap": "^3.13.0",
+    "howler": "^2.2.4",
     "regenerator-runtime": "^0.13.9",
     "three": "^0.178.0"
   },
