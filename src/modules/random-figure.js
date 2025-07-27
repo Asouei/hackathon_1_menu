@@ -1,17 +1,13 @@
 import Module from '../core/module';
 import { SVG } from '@svgdotjs/svg.js';
-import { setRandomPathPosition,randomPathGenerator,randomHSLColor } from '../utils/utils.js';
+import { safeRandomPathGenerator, randomHSLColor } from '../utils/utils.js';
 
-
-
-
-export class RandomFigure extends Module{
-    constructor(){
+export class RandomFigure extends Module {
+    constructor() {
         super('Random Figure', 'Random Figure');
     }
 
-
-    trigger(){
+    trigger() {
         const existingCanvas = document.querySelector('.canvasDiv');
         if (existingCanvas) existingCanvas.remove();
 
@@ -20,18 +16,42 @@ export class RandomFigure extends Module{
         canvasDiv.className = "canvasDiv";
         body.append(canvasDiv);
 
-        let draw = SVG().addTo('.canvasDiv').size('100%', '100%');
+        const draw = SVG().addTo('.canvasDiv').size('100%', '100%');
 
-        var path = draw.path(randomPathGenerator(canvasDiv));
+        const path = draw.path(safeRandomPathGenerator(canvasDiv));
         path.fill('none');
-        path.stroke({ color: `${randomHSLColor()}`, width: 4, linecap: 'round', linejoin: 'round' })
-        setRandomPathPosition(canvasDiv, path);
+        path.stroke({
+            color: randomHSLColor(),
+            width: 4,
+            linecap: 'round',
+            linejoin: 'round'
+        });
 
-        canvasDiv.addEventListener('click', (event)=>{
+        // Выбираем тип анимации (теперь все плавные)
+        const animationTypes = ['', 'smooth', 'chaotic', 'gentle'];
+        const weights = [30, 25, 25, 20]; // Веса для выбора (gentle реже)
+
+        let randomType = '';
+        const random = Math.random() * 100;
+        let cumulativeWeight = 0;
+
+        for (let i = 0; i < animationTypes.length; i++) {
+            cumulativeWeight += weights[i];
+            if (random <= cumulativeWeight) {
+                randomType = animationTypes[i];
+                break;
+            }
+        }
+
+        if (randomType) {
+            path.addClass(randomType);
+        }
+
+        canvasDiv.addEventListener('click', (event) => {
             const canvas = event.target.closest('.canvasDiv');
-            if(canvas){
+            if (canvas) {
                 canvasDiv.remove();
             }
-        },  { once: true })
+        }, { once: true });
     }
 }

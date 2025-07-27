@@ -17,7 +17,6 @@ export default class ContextMenu extends Menu {
 
     // Обработка клика по пункту меню
     this.el.addEventListener('click', (event) => {
-
       const item = event.target.closest('.menu-item');
       console.log('[DEBUG] Clicked item:', item);
       if (!item) return;

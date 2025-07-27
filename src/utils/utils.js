@@ -129,37 +129,36 @@ function tetradSchemeHue() {
   ];
 }
 
-
 // ==========================
 // Working with canvas path
 // ==========================
 
-function getCanvasDimensions(canvasDiv){
+function getCanvasDimensions(canvasDiv) {
   const canvasWidth = canvasDiv.clientWidth;
   const canvasHeight = canvasDiv.clientHeight;
-  return [canvasWidth, canvasHeight]
+  return [canvasWidth, canvasHeight];
 }
 
-function getRandomPoint(canvasDiv){
+function getRandomPoint(canvasDiv) {
   const canvasDimensions = getCanvasDimensions(canvasDiv);
-  const randomX = Math.floor(Math.random()* canvasDimensions[0]);
-  const randomY = Math.floor(Math.random()* canvasDimensions[1]);
+  const randomX = Math.floor(Math.random() * canvasDimensions[0]);
+  const randomY = Math.floor(Math.random() * canvasDimensions[1]);
   return [randomX, randomY];
 }
 
-function createArc(canvasDiv){
+function createArc(canvasDiv) {
   // rx ry x-axis-rotation large-arc-flag sweep-flag x y
-  return `A${Math.floor(Math.random()*50)} ${Math.floor(Math.random()*50)} ${Math.floor(Math.random()*360)} 0 1 ${getRandomPoint(canvasDiv)[0]/10} ${getRandomPoint(canvasDiv)[1]/10} `;
+  return `A${Math.floor(Math.random() * 50)} ${Math.floor(Math.random() * 50)} ${Math.floor(Math.random() * 360)} 0 1 ${getRandomPoint(canvasDiv)[0] / 10} ${getRandomPoint(canvasDiv)[1] / 10} `;
 }
 
-function createCurve(canvasDiv){
+function createCurve(canvasDiv) {
   // (x1 y1 x y)+
-  return `Q${Math.floor(Math.random()*50)} ${Math.floor(Math.random()*50)} ${getRandomPoint(canvasDiv)[0]/10} ${getRandomPoint(canvasDiv)[1]/10} `;
+  return `Q${Math.floor(Math.random() * 50)} ${Math.floor(Math.random() * 50)} ${getRandomPoint(canvasDiv)[0] / 10} ${getRandomPoint(canvasDiv)[1] / 10} `;
 }
 
-function createLine(canvasDiv){
+function createLine(canvasDiv) {
   // (x1 y1 x y)+
-  return `L${getRandomPoint(canvasDiv)[0]/10} ${getRandomPoint(canvasDiv)[1]/10} `;
+  return `L${getRandomPoint(canvasDiv)[0] / 10} ${getRandomPoint(canvasDiv)[1] / 10} `;
 }
 
 const pathDrawingCommands = [createArc, createCurve, createLine];
@@ -180,18 +179,62 @@ export function randomPathGenerator(canvasDiv) {
   return pathD;
 }
 
+export function safeRandomPathGenerator(canvasDiv) {
+  const width = canvasDiv.clientWidth;
+  const height = canvasDiv.clientHeight;
 
-export function setRandomPathPosition(canvasDiv, path){
-  path.move(0,0);
-  const canvasDimensions = getCanvasDimensions(canvasDiv);
-  const bbox = path.bbox();
-  console.log('Correct bbox:', bbox);
-  const xMax = Math.max(0, canvasDimensions[0] - bbox.width);
-  const yMax = Math.max(0, canvasDimensions[1] - bbox.height);
-  const x = random(0, xMax);
-  const y = random(0, yMax);
+  // Безопасная зона - отступы от краев
+  const margin = 100;
+  const safeWidth = width - (margin * 2);
+  const safeHeight = height - (margin * 2);
 
-  path.move(x,y);
-  console.log('Moved:', x,y);
+  // Ограничиваем количество точек для более плавных фигур
+  const numPoints = Math.floor(Math.random() * 4) + 4; // 4-7 точек
+
+  let path = '';
+  const points = [];
+
+  // Генерируем точки в безопасной зоне
+  for (let i = 0; i < numPoints; i++) {
+    const x = margin + Math.random() * safeWidth;
+    const y = margin + Math.random() * safeHeight;
+    points.push({ x, y });
+  }
+
+  // Сортируем точки по углу относительно центра для более плавной фигуры
+  const centerX = margin + safeWidth / 2;
+  const centerY = margin + safeHeight / 2;
+
+  points.sort((a, b) => {
+    const angleA = Math.atan2(a.y - centerY, a.x - centerX);
+    const angleB = Math.atan2(b.y - centerY, b.x - centerX);
+    return angleA - angleB;
+  });
+
+  // Создаем путь
+  if (points.length > 0) {
+    path = `M ${points[0].x} ${points[0].y}`;
+
+    // Соединяем точки плавными кривыми
+    for (let i = 1; i < points.length; i++) {
+      const current = points[i];
+      const prev = points[i - 1];
+
+      // Добавляем небольшую кривизну для плавности
+      const cpX = (prev.x + current.x) / 2 + (Math.random() - 0.5) * 30;
+      const cpY = (prev.y + current.y) / 2 + (Math.random() - 0.5) * 30;
+
+      path += ` Q ${cpX} ${cpY} ${current.x} ${current.y}`;
+    }
+
+    // Замыкаем фигуру
+    const firstPoint = points[0];
+    const lastPoint = points[points.length - 1];
+    const closingCpX = (lastPoint.x + firstPoint.x) / 2 + (Math.random() - 0.5) * 30;
+    const closingCpY = (lastPoint.y + firstPoint.y) / 2 + (Math.random() - 0.5) * 30;
+
+    path += ` Q ${closingCpX} ${closingCpY} ${firstPoint.x} ${firstPoint.y} Z`;
+  }
+
+  return path;
 }
-
