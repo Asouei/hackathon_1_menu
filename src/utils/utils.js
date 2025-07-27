@@ -71,7 +71,7 @@ function hslToHex(h, s, l) {
 // ==========================
 // Генерация HSL строк
 // ==========================
-function randomHSLColor() {
+export function randomHSLColor() {
   const h = random(0, 360);
   const s = random(60, 100); // более насыщенные
   const l = random(40, 85); // более светлые
@@ -128,3 +128,70 @@ function tetradSchemeHue() {
     `hsl(${(h + 240) % 360},${s}%,${l}%)`,
   ];
 }
+
+
+// ==========================
+// Working with canvas path
+// ==========================
+
+function getCanvasDimensions(canvasDiv){
+  const canvasWidth = canvasDiv.clientWidth;
+  const canvasHeight = canvasDiv.clientHeight;
+  return [canvasWidth, canvasHeight]
+}
+
+function getRandomPoint(canvasDiv){
+  const canvasDimensions = getCanvasDimensions(canvasDiv);
+  const randomX = Math.floor(Math.random()* canvasDimensions[0]);
+  const randomY = Math.floor(Math.random()* canvasDimensions[1]);
+  return [randomX, randomY];
+}
+
+function createArc(canvasDiv){
+  // rx ry x-axis-rotation large-arc-flag sweep-flag x y
+  return `A${Math.floor(Math.random()*50)} ${Math.floor(Math.random()*50)} ${Math.floor(Math.random()*360)} 0 1 ${getRandomPoint(canvasDiv)[0]/10} ${getRandomPoint(canvasDiv)[1]/10} `;
+}
+
+function createCurve(canvasDiv){
+  // (x1 y1 x y)+
+  return `Q${Math.floor(Math.random()*50)} ${Math.floor(Math.random()*50)} ${getRandomPoint(canvasDiv)[0]/10} ${getRandomPoint(canvasDiv)[1]/10} `;
+}
+
+function createLine(canvasDiv){
+  // (x1 y1 x y)+
+  return `L${getRandomPoint(canvasDiv)[0]/10} ${getRandomPoint(canvasDiv)[1]/10} `;
+}
+
+const pathDrawingCommands = [createArc, createCurve, createLine];
+
+export function randomPathGenerator(canvasDiv) {
+  const pathLength = random(3, 6); // безопасный диапазон
+  const [startX, startY] = getRandomPoint(canvasDiv);
+  const pathParts = [`M${startX} ${startY}`];
+
+  for (let i = 0; i < pathLength; i++) {
+    const commandIndex = random(0, pathDrawingCommands.length - 1);
+    pathParts.push(pathDrawingCommands[commandIndex](canvasDiv).trim());
+  }
+
+  pathParts.push('Z');
+  const pathD = pathParts.join(' ');
+  console.log('Generated path:', pathD);
+  return pathD;
+}
+
+
+export function setRandomPathPosition(canvasDiv, path){
+  path.move(0,0);
+  const canvasDimensions = getCanvasDimensions(canvasDiv);
+  const bbox = path.bbox();
+  console.log('Correct bbox:', bbox);
+  const xMax = Math.max(0, canvasDimensions[0] - bbox.width);
+  const yMax = Math.max(0, canvasDimensions[1] - bbox.height);
+  const x = random(0, xMax);
+  const y = random(0, yMax);
+
+  path.move(x,y);
+  console.log('Moved:', x,y);
+}
+

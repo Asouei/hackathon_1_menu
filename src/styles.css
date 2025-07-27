@@ -1350,3 +1350,37 @@ body.gradient-applied {
         transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
 }
+
+/*canvas settings*/
+.canvasDiv{
+    position: absolute;
+    left: 0;
+    top: 0 ;
+    padding:0;
+    margin:0;
+    width: calc(100vw - 1rem);
+    height: 100vh;
+    box-sizing: border-box;
+    /* check borders */
+    /* border: 2px solid green; */
+}
+
+
+@keyframes svgAnimationOpacity {
+  from {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+  to {
+    opacity: 0.6;
+    transform: rotate(360deg);
+  }
+}
+
+.canvasDiv path {
+  animation-name: svgAnimationOpacity;
+  animation-duration: 10s;
+  animation-direction: alternate;
+  animation-iteration-count: infinite; /* чтобы анимация повторялась */
+  transform-origin: center center; /* центр вращения */
+}
