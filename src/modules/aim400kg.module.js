@@ -93,7 +93,7 @@ export default class Aim400kgModule extends Module {
       }),
       ambient: new Howl({
         src: ['sounds/ambient.wav'],
-        volume: 0.1,
+        volume: 0.8,
         loop: true,
         rate: 1.0,
       }),
